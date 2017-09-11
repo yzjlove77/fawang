@@ -339,6 +339,17 @@ public class HomeFragment extends BaseFragment<HomeFgView,HomeFgPresenter> imple
             currentDropdownList.startAnimation(dropdown_in);
             currentDropdownList.setVisibility(View.VISIBLE);
             currentDropdownList.button.setChecked(true);
+
+            appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+                @Override
+                public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                    if (verticalOffset >= 0) {
+                        refreshLayout.setEnabled(true);
+                    } else {
+                        refreshLayout.setEnabled(false);
+                    }
+                }
+            });
         }
 
         @Override

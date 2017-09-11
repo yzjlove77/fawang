@@ -79,6 +79,7 @@ public class LoginActivity extends BaseActivity<LoginView,LoginPresenter> implem
             String name = judgetLoginData.getFg_name();
             sph.setName(name);
             sph.setPhone("");
+            sph.setCourtCode(judgetLoginData.getFybm());
         }
         startActivity(new Intent(mContext, MainActivity.class));
         finish();

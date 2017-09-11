@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.widget.LinearLayout;
 
 import com.android.wx.french.R;
+import com.android.wx.french.activity.AlbumActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -119,7 +120,7 @@ public class PopupWindowPhoto extends BasePopupWindow {
                     mContext.startActivityForResult(intent, RESULT_LOAD_IMAGE);
                     dismiss();
                 } else {
-//                    mActivity.startActivity(new Intent(mActivity, AlbumActivity.class).putExtra("maxImages", maxImages));
+                    mContext.startActivity(new Intent(mContext, AlbumActivity.class).putExtra("maxImages", maxImages));
                 }
                 break;
             //取消

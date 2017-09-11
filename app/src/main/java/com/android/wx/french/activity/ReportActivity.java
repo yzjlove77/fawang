@@ -20,6 +20,8 @@ import com.android.wx.french.R;
 import com.android.wx.french.adapter.OnClickItemListener;
 import com.android.wx.french.adapter.ReportAdapter;
 import com.android.wx.french.base.BaseActivity;
+import com.android.wx.french.events.AlbumSelectEvent;
+import com.android.wx.french.model.Album;
 import com.android.wx.french.model.GetRewardData;
 import com.android.wx.french.model.ReportBean;
 import com.android.wx.french.model.ReportData;
@@ -29,6 +31,10 @@ import com.android.wx.french.util.MLog;
 import com.android.wx.french.util.PermissionHelper;
 import com.android.wx.french.view.IReportView;
 import com.android.wx.french.widget.popupwindow.PopupWindowPhoto;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -57,6 +63,7 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
     private LinearLayoutManager imageLayoutManager, videoLayoutManager;
     private PopupWindowPhoto popupWindowPhoto;
     private GetRewardData rewardData;
+    private ArrayList<Album> albums, videoAlbums;
 
     @Override
     protected ReportPresenter createPresenter() {
@@ -72,22 +79,22 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
     protected void initView() {
         super.initView();
         titleTitle.setText("提供线索");
-
+        EventBus.getDefault().register(this);
         imageLayoutManager = new LinearLayoutManager(mContext);
         imageLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         imageRecycler.setLayoutManager(imageLayoutManager);
-        imageUrls = new ArrayList<>();
-        imageUrls.add("");
-        imageAdapter = new ReportAdapter(mContext, imageUrls);
+        albums = new ArrayList<>();
+        albums.add(new Album());
+        imageAdapter = new ReportAdapter(mContext, albums);
         imageRecycler.setAdapter(imageAdapter);
         imageAdapter.setOnClickItemListener(this);
 
         videoLayoutManager = new LinearLayoutManager(mContext);
         videoLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         videoRecycler.setLayoutManager(videoLayoutManager);
-        videoUrls = new ArrayList<>();
-        videoUrls.add("");
-        videoAdapter = new ReportAdapter(mContext, videoUrls);
+        videoAlbums = new ArrayList<>();
+        videoAlbums.add(new Album());
+        videoAdapter = new ReportAdapter(mContext, videoAlbums);
         videoRecycler.setAdapter(videoAdapter);
     }
 
@@ -135,6 +142,16 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
                 if (!TextUtils.isEmpty(idcard)) {
                     data.setBe_report_man_idcard(idcard);
                 }
+                int size = albums.size();
+                String images = "1&,&/1/";
+                for (int i = 0; i < size - 1; i++) {
+                    if (i == size - 2) {
+                        images = images + albums.get(i).getImagePath();
+                    } else {
+                        images = images + albums.get(i).getImagePath() + "&;&1&,&/1/";
+                    }
+                }
+                data.setListMedia(images);
 
                 ReportBean bean = new ReportBean();
                 bean.setRequestMethod("insertReport");
@@ -145,18 +162,28 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(AlbumSelectEvent event) {
+        albums.addAll(albums.size() - 1, event.getAlbums());
+        imageAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onClickItem(View view, int position) {
         switch (view.getId()) {
             case R.id.item_report_image:
-                if (position == imageUrls.size() - 1) {
+                if (position == albums.size() - 1) {
                     boolean permission = PermissionHelper.getInstance(mContext).isPermission(mContext,
                             new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, PermissionHelper.PERMISSION_PHOTO);
                     MLog.mLog("permission = " + permission);
                     if (permission) {
-//                        showPopupPhoto();
+                        showPopupPhoto();
                     }
                 }
+                break;
+            case R.id.item_reduce_image:
+                albums.remove(position);
+                imageAdapter.notifyItemRemoved(position);
                 break;
         }
     }
@@ -164,7 +191,6 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
     private void showPopupPhoto() {
         if (popupWindowPhoto == null) {
             popupWindowPhoto = new PopupWindowPhoto(mContext);
-            popupWindowPhoto.setProfileImage(true);
         }
         popupWindowPhoto.showPopupWindow();
     }
@@ -172,28 +198,11 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case PopupWindowPhoto.RESULT_LOAD_IMAGE:
-                if (resultCode == RESULT_OK && null != data) {// 相册返回
-                    Uri uri = data.getData();
-                    if (uri != null) {
-                        popupWindowPhoto.cutPhoto(uri);
-                    }
-                } else {
-                }
-                break;
             case PopupWindowPhoto.TAKE_PICTURE://拍照
                 if (RESULT_OK == resultCode) {
-                    popupWindowPhoto.cutPhoto(popupWindowPhoto.getImageUri());
-                } else {
-
-                }
-                break;
-            case PopupWindowPhoto.CUT_PHOTO_REQUEST_CODE:
-                if (null != data) {
-                    String absolutePath = AbsolutePathUtil.getAbsolutePath(this, popupWindowPhoto.getImageUri());
-                    MLog.mLog("absolutePath = " + absolutePath);
-                    imageUrls.add(imageUrls.size() - 1, absolutePath);
-                    imageAdapter.notifyItemChanged(imageUrls.size() - 1);
+                    Uri imageUri = popupWindowPhoto.getImageUri();
+                    imageUrls.add(imageUrls.size() - 1, AbsolutePathUtil.getAbsolutePath(this, imageUri));
+                    imageAdapter.notifyDataSetChanged();
                 }
                 break;
         }
@@ -258,5 +267,11 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
     @Override
     public void failedViewReport(String msg) {
         showToast(msg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

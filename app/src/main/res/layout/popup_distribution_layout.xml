@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/popup_distribution_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shp_submit_bg"
+        android:elevation="4dp"
+        android:layout_margin="@dimen/view_padding"
+        android:orientation="vertical"
+        android:padding="@dimen/view_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分配金额"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divide"
+            android:layout_marginTop="@dimen/view_margin"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="分数"
+            android:textColor="@color/font_black_content"
+            android:layout_marginTop="@dimen/view_margin"/>
+        <EditText
+            android:id="@+id/popup_mark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/editext_bac"
+            android:textSize="14sp"
+            android:hint="分数"
+            android:textCursorDrawable="@drawable/course_bac"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/view_small_margin"
+            android:layout_marginTop="@dimen/view_small_margin"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="金额"
+            android:textColor="@color/font_black_content"
+            android:layout_marginTop="@dimen/view_margin"/>
+        <EditText
+            android:id="@+id/popup_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/editext_bac"
+            android:textSize="14sp"
+            android:hint="金额"
+            android:textCursorDrawable="@drawable/course_bac"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/view_small_margin"
+            android:layout_marginTop="@dimen/view_small_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/view_margin">
+            <CheckBox
+                android:id="@+id/popup_true"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:theme="@style/CheckBoxStyle"
+                android:text="举报真实"/>
+
+            <CheckBox
+                android:id="@+id/popup_effective"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:theme="@style/CheckBoxStyle"
+                android:text="举报有效"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/view_margin">
+
+            <Button
+                android:id="@+id/popup_cancel"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_blue_bac"
+                android:textColor="@color/white"
+                android:text="取消"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"/>
+            <Button
+                android:id="@+id/popup_sure"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_blue_bac"
+                android:textColor="@color/white"
+                android:text="确定"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

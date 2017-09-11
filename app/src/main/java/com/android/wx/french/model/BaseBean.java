@@ -6,7 +6,7 @@ package com.android.wx.french.model;
 
 public class BaseBean {
 
-    private String RequestMethod;
+    protected String RequestMethod;
 
     public String getRequestMethod() {
         return RequestMethod;

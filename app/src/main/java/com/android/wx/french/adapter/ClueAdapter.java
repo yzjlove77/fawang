@@ -65,6 +65,15 @@ public class ClueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
         });
+
+        normalHolder.distributionTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickItemListener != null) {
+                    onClickItemListener.onClickItem(v, normalHolder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override
@@ -82,6 +91,8 @@ public class ClueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView timeTv;
         @Bind(R.id.item_clue_btn)
         TextView submitTv;
+        @Bind(R.id.item_distribution_btn)
+        TextView distributionTv;
 
         public NormalHolder(View itemView) {
             super(itemView);

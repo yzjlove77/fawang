@@ -16,6 +16,7 @@ public class GetJudgetLoginData {
      * fg_email : xied@jinyun.zj.pcc
      */
 
+    private String fybm;
     private String bm_mc;
     private String fg_password;
     private String fg_name;
@@ -23,6 +24,14 @@ public class GetJudgetLoginData {
     private String bm;
     private String fg_userid;
     private String fg_email;
+
+    public String getFybm() {
+        return fybm;
+    }
+
+    public void setFybm(String fybm) {
+        this.fybm = fybm;
+    }
 
     public String getBm_mc() {
         return bm_mc;

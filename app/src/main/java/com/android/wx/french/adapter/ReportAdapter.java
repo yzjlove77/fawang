@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.android.wx.french.R;
+import com.android.wx.french.model.Album;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
 public class ReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> list;
+    private ArrayList<Album> list;
     private LayoutInflater inflater;
     private OnClickItemListener onClickItemListener;
 
@@ -30,7 +31,7 @@ public class ReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.onClickItemListener = onClickItemListener;
     }
 
-    public ReportAdapter(Context mContext, ArrayList<String> list) {
+    public ReportAdapter(Context mContext, ArrayList<Album> list) {
         this.mContext = mContext;
         this.list = list;
         inflater = LayoutInflater.from(mContext);
@@ -46,15 +47,26 @@ public class ReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         NormalHolder normalHolder = (NormalHolder) holder;
         if (position == list.size() - 1) {
+            normalHolder.reduceIv.setVisibility(View.GONE);
             Glide.with(mContext)
                     .load(R.drawable.home_addphoto)
                     .into(normalHolder.reportIv);
         } else {
+            normalHolder.reduceIv.setVisibility(View.VISIBLE);
             Glide.with(mContext)
-                    .load(list.get(position))
+                    .load(list.get(position).getImagePath())
                     .into(normalHolder.reportIv);
         }
         normalHolder.reportIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickItemListener != null) {
+                    onClickItemListener.onClickItem(v, normalHolder.getAdapterPosition());
+                }
+            }
+        });
+
+        normalHolder.reduceIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onClickItemListener != null) {
@@ -75,6 +87,8 @@ public class ReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ImageView reportIv;
         @Bind(R.id.item_report_type)
         ImageView typeIv;
+        @Bind(R.id.item_reduce_image)
+        ImageView reduceIv;
 
         public NormalHolder(View itemView) {
             super(itemView);
