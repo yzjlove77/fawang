@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/item_clue_layout"
+        android:background="?selectableItemBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/view_padding"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_clue_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_black_content"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/item_clue_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:drawableLeft="@drawable/jubao_time"
+            android:drawablePadding="@dimen/view_margin"
+            android:layout_marginTop="@dimen/view_margin"
+            android:text="举报时间：2017-08-15"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_clue_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/view_margin"
+        android:background="@drawable/editext_bac"
+        android:padding="4dp"
+        android:layout_marginRight="@dimen/view_padding"
+        android:text="提交"/>
+</LinearLayout>

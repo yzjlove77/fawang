@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">法网App</string>
+
+    <string name="tab_home">首页</string>
+    <string name="tab_exposuer">曝光</string>
+    <string name="tab_message">消息</string>
+    <string name="tab_personal">我</string>
+    <string name="message_sixin">私信</string>
+    <string name="message_tongzhi">通知</string>
+
+    <string name="my">我的</string>
+    <string name="my_renwu">我的任务</string>
+    <string name="my_fabu">我的发布</string>
+    <string name="my_jubao">我的举报</string>
+    <string name="my_shoucang">我的收藏</string>
+    <string name="my_pignjia">我的评价</string>
+    <string name="my_shangjin">我的赏金</string>
+    <string name="my_pegnyouquan">赏猎朋友圈</string>
+    <string name="my_sjlrpaihang">赏金猎人排行版</string>
+
+    <string name="expo_name">老赖曝光</string>
+    <string name="expo_search">查询</string>
+
+    <string name="setting_name">设置</string>
+    <string name="setting_zhanghaoanq">账号与安全</string>
+    <string name="setting_tongzhi">通知与提醒</string>
+    <string name="setting_clean">清除缓存</string>
+    <string name="setting_yijian">意见反馈</string>
+    <string name="setting_about">关于</string>
+
+    <string name="login_message">获取验证码</string>
+    <string name="login_name">登录</string>
+    <string name="login_other">其他登录方式</string>
+
+    <string name="person_png">更改头像</string>
+    <string name="person_name">姓名</string>
+    <string name="person_nicheng">昵称</string>
+    <string name="person_sex">性别</string>
+    <string name="person_phone">手机</string>
+    <string name="person_id">身份证号</string>
+    <string name="person_zhifubao">支付宝账号</string>
+    <string name="person_baocun">保存</string>
+
+    <string name="register_name">注册</string>
+
+</resources>

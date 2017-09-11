@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/my_bac"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/titlebar_layout"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+        <Button
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textColor="@color/release_title"
+            android:text="@string/setting_zhanghaoanq"
+            android:drawableRight="@drawable/setting_go"
+            android:paddingRight="10dp"
+            android:background="@null"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <Button
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/release_title"
+                android:text="@string/setting_tongzhi"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:layout_height="match_parent" />
+
+
+            <CheckBox
+                android:button="@drawable/setting_checkbox_bac"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:checked="true"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <Button
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/release_title"
+                android:text="@string/setting_clean"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:layout_height="match_parent" />
+
+
+           <TextView
+               android:layout_marginRight="15dp"
+               android:text="4.5M"
+               android:textColor="@color/secendcolor"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_marginTop="25dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/viewdip"
+        android:background="@color/graycolore"/>
+    <Button
+        android:id="@+id/setting_yijian_btn"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textColor="@color/release_title"
+        android:text="@string/setting_yijian"
+        android:drawableRight="@drawable/setting_go"
+        android:paddingRight="10dp"
+        android:background="@null"/>
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/viewdip"
+        android:background="@color/graycolore"/>
+    <Button
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textColor="@color/release_title"
+        android:text="@string/setting_about"
+        android:drawableRight="@drawable/setting_go"
+        android:paddingRight="10dp"
+        android:background="@null"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/viewdip"
+        android:background="@color/graycolore"/>
+
+</LinearLayout>
+
+
+    <Button
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="退出"
+        android:textColor="@color/white"
+        android:background="@drawable/button_blue_bac"/>
+</LinearLayout>

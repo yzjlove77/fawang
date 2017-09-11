@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_task_layout"
+    android:orientation="vertical"
+    android:background="?selectableItemBackground"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/item_task_title"
+        android:text="浙江杭州萧山发生一起故意杀人案 "
+        android:textColor="@color/release_title"
+        android:textSize="@dimen/textsize18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/item_task_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/secendcolor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="浙江杭州萧山发生一起故意杀人案浙江杭州萧山发生一起故意杀人案浙江杭州萧山发生一起故意杀人案浙江杭州萧山发生一起故意杀人案"
+android:maxLength="40"
+
+
+        />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_task_time"
+            android:text="发布时间：2017-8-15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/item_task_count"
+            android:gravity="right"
+            android:text="38人提供线索"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

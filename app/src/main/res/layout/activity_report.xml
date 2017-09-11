@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_report"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.android.wx.french.activity.ReportActivity">
+
+    <include layout="@layout/titlebar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/view_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="执行线索描述"
+                android:textColor="@color/font_black_content"
+                android:textSize="16sp" />
+            <EditText
+                android:id="@+id/report_description"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/editext_bac"
+                android:hint="线索描述"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/view_margin"
+                android:text="具体执行线索"
+                android:textColor="@color/font_black_content"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/report_content"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="@dimen/view_small_margin"
+                android:background="@drawable/editext_bac"
+                android:gravity="top|left"
+                android:hint="填写具体执行线索"
+                android:padding="@dimen/view_margin"
+                android:textSize="14sp"
+                android:textCursorDrawable="@drawable/course_bac"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="被举报人姓名"
+                android:textColor="@color/font_black_content"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/view_margin"/>
+            <EditText
+                android:id="@+id/report_name"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/editext_bac"
+                android:hint="姓名（选填）"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="被举报人身份证"
+                android:textColor="@color/font_black_content"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/view_margin"/>
+            <EditText
+                android:id="@+id/report_idcard"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/editext_bac"
+                android:hint="身份证号（选填）"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/view_margin"
+                android:text="上传图片"
+                android:textColor="@color/font_black_content"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="@dimen/view_small_margin"
+                android:background="@drawable/editext_bac"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/report_image_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/view_margin"
+                android:text="上传视频"
+                android:textColor="@color/font_black_content"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="@dimen/view_small_margin"
+                android:background="@drawable/editext_bac"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/report_video_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/report_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/view_padding"
+                android:background="@drawable/button_blue_bac"
+                android:text="提交"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

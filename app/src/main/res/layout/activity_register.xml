@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.android.wx.french.activity.RegisterActivity">
+
+    <include layout="@layout/titlebar_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <EditText
+            android:id="@+id/register_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/login_user"
+            android:drawablePadding="6dp"
+            android:hint="姓名"
+            android:textCursorDrawable="@drawable/course_bac" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore" />
+
+        <EditText
+            android:id="@+id/register_phone"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/login_user"
+            android:drawablePadding="6dp"
+            android:hint="手机号"
+            android:maxLength="11"
+            android:inputType="number"
+            android:textCursorDrawable="@drawable/course_bac" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore" />
+
+        <EditText
+            android:id="@+id/register_idCard"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/login_user"
+            android:drawablePadding="6dp"
+            android:hint="身份证号"
+            android:textCursorDrawable="@drawable/course_bac" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore" />
+
+        <EditText
+            android:id="@+id/register_password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/login_password"
+            android:drawablePadding="6dp"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:textCursorDrawable="@drawable/course_bac" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore" />
+
+        <EditText
+            android:id="@+id/register_password_again"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/login_password"
+            android:drawablePadding="6dp"
+            android:inputType="textPassword"
+            android:hint="确认密码"
+            android:textCursorDrawable="@drawable/course_bac" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore" />
+
+        <Button
+            android:id="@+id/register_btn"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textColor="@color/white"
+            android:text="@string/register_name"
+            android:textSize="18sp"
+            android:background="@drawable/button_gray_bac"/>
+    </LinearLayout>
+</LinearLayout>

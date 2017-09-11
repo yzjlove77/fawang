@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:loonggg="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.loonggg.rvbanner.lib.RecyclerViewBanner
+        android:id="@+id/rv_banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        loonggg:rvb_interval="3000"
+        loonggg:rvb_autoPlaying="true"
+        loonggg:rvb_showIndicator="true"
+        loonggg:rvb_indicatorGravity="center"
+        />
+    <Button
+        android:id="@+id/home_search_btn"
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/search_bac"
+        android:drawableRight="@drawable/home_search"
+        android:paddingRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:hint="请输入您所搜索的关键词"
+        />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/my_bac"/>
+
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/release_title"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:text="热门悬赏"
+            android:textSize="@dimen/textsize18"
+            android:textColor="@color/release_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/release_title"/>
+
+    </LinearLayout>
+
+
+    <!--<LinearLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <com.android.wx.french.custom.DropdownButton
+            android:id="@+id/nearButton"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="18dp"
+            android:background="#dddddd" />
+
+        <com.android.wx.french.custom.DropdownButton
+            android:id="@+id/chooseLabel"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="18dp"
+            android:background="#dddddd" />
+
+        <com.android.wx.french.custom.DropdownButton
+            android:id="@+id/choosetype"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="18dp"
+            android:background="#dddddd" />
+
+
+        <com.android.wx.french.custom.DropdownButton
+            android:id="@+id/chooseOrder"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>-->
+
+
+</LinearLayout>

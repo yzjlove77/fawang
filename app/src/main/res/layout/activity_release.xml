@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/titlebar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="悬赏标题"
+                android:textColor="@color/release_title" />
+
+            <EditText
+                android:id="@+id/release_title"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/editext_bac"
+                android:hint="被执行人下落、财产情况"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="选择悬赏类型"
+                android:textColor="@color/release_title" />
+
+            <RadioGroup
+                android:id="@+id/release_type_group"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/release_type_person"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/release_radio_bac"
+                    android:drawablePadding="5dp"
+                    android:text="寻人"
+                    android:textColor="@color/secendcolor" />
+
+                <RadioButton
+                    android:id="@+id/release_type_thing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/release_radio_bac"
+                    android:drawablePadding="5dp"
+                    android:text="找物"
+                    android:textColor="@color/secendcolor" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="被执行人个性信息"
+                android:textColor="@color/release_title" />
+
+            <EditText
+                android:id="@+id/release_personal_info"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/editext_bac"
+                android:gravity="left|top"
+                android:hint="个性信息描述"
+                android:padding="3dp"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="被执行人动态信息"
+                android:textColor="@color/release_title" />
+
+            <EditText
+                android:id="@+id/release_dynamic_info"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/editext_bac"
+                android:gravity="left|top"
+                android:hint="动态信息描述"
+                android:padding="3dp"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="申请人要求"
+                android:textColor="@color/release_title" />
+
+            <EditText
+                android:id="@+id/release_requirement"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/editext_bac"
+                android:gravity="left|top"
+                android:hint="请填写申请人要求"
+                android:padding="3dp"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="申请人详情"
+                android:textColor="@color/release_title" />
+
+            <EditText
+                android:id="@+id/release_detail"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/editext_bac"
+                android:gravity="left|top"
+                android:hint="请填写申请人详情"
+                android:padding="3dp"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="完成时间"
+                android:textColor="@color/release_title" />
+
+            <TextView
+                android:id="@+id/select_time_tv"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/editext_bac"
+                android:drawableRight="@drawable/release_down"
+                android:gravity="center_vertical"
+                android:hint="请选择时间"
+                android:paddingLeft="6dp"
+                android:paddingRight="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="户籍信息"
+                android:textColor="@color/release_title" />
+
+            <TextView
+                android:id="@+id/release_select_city"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/editext_bac"
+                android:drawableRight="@drawable/release_down"
+                android:gravity="center_vertical"
+                android:hint="请选择省市区"
+                android:paddingLeft="6dp"
+                android:paddingRight="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="详细地址"
+                android:textColor="@color/release_title" />
+
+            <EditText
+                android:id="@+id/release_address"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/editext_bac"
+                android:hint="请输入被执行人详细地址"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="上传图片"
+                android:textColor="@color/release_title" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/editext_bac"
+                android:hint="可添加被执行人图片"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="被执行人身份证"
+                android:textColor="@color/release_title" />
+
+            <EditText
+                android:id="@+id/release_idcard"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/editext_bac"
+                android:hint="被执行人身份证"
+                android:paddingLeft="3dp"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="选择赏金设置类型"
+                android:textColor="@color/release_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/release_reward_type_one"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/release_radio_bac"
+                    android:drawablePadding="5dp"
+                    android:text="一次性确定赏金"
+                    android:textColor="@color/secendcolor" />
+
+                <TextView
+                    android:id="@+id/release_reward_type_two"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_weight="1.5"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/release_radio_bac"
+                    android:drawablePadding="5dp"
+                    android:text="执行到位标的额的百分比"
+                    android:textColor="@color/secendcolor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/release_reward_type_three"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/release_radio_bac"
+                    android:drawablePadding="5dp"
+                    android:text="执行悬赏保险"
+                    android:textColor="@color/secendcolor" />
+
+                <TextView
+                    android:id="@+id/release_reward_type_four"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_weight="1.5"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/release_radio_bac"
+                    android:drawablePadding="5dp"
+                    android:text="后续可不断提高赏金"
+                    android:textColor="@color/secendcolor" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/release_reward"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/editext_bac"
+                android:hint="10000.00元"
+                android:paddingLeft="5dp"
+                android:inputType="numberDecimal"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+            <Button
+                android:id="@+id/release_btn"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/button_blue_bac"
+                android:text="发布"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

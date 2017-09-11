@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/my_bac"
+
+    android:layout_height="match_parent">
+
+    <include layout="@layout/titlebar_layout"/>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:paddingLeft="15dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:text="@string/person_png"
+                android:textColor="@color/release_title"
+                />
+
+            <com.android.wx.french.util.CircleImageView
+                android:id="@+id/my_photo_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/phb_yuan"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:paddingRight="10dp"
+            android:layout_height="45dp">
+
+            <TextView
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/person_nicheng"
+                android:textColor="@color/release_title"
+                />
+
+            <EditText
+                android:id="@+id/personal_nickname"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:hint=""
+                android:textCursorDrawable="@drawable/course_bac"
+                android:background="@null"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:paddingRight="10dp"
+            android:layout_height="45dp">
+
+            <TextView
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/person_name"
+                android:textColor="@color/release_title"
+                />
+
+            <EditText
+                android:id="@+id/personal_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:hint=""
+                android:background="@null"
+                android:textCursorDrawable="@drawable/course_bac"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:paddingRight="10dp"
+            android:layout_height="45dp">
+
+            <TextView
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/person_sex"
+                android:textColor="@color/release_title"
+                />
+
+            <EditText
+                android:id="@+id/personal_sex"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:hint=""
+                android:background="@null"
+                android:textCursorDrawable="@drawable/course_bac"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:paddingRight="10dp"
+            android:layout_height="45dp">
+
+            <TextView
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/person_phone"
+                android:textColor="@color/release_title"
+                />
+
+            <EditText
+                android:id="@+id/personal_phone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:hint=""
+                android:background="@null"
+                android:textCursorDrawable="@drawable/course_bac"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore"/>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:paddingRight="10dp"
+            android:layout_height="45dp">
+
+            <TextView
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/person_zhifubao"
+                android:textColor="@color/release_title"
+                />
+
+            <EditText
+                android:id="@+id/personal_alipay"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:hint=""
+                android:background="@null"
+                android:textCursorDrawable="@drawable/course_bac"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/viewdip"
+        android:background="@color/graycolore"/>
+
+
+    <Button
+        android:id="@+id/personal_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/button_blue_bac"
+        android:text="@string/person_baocun"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_margin="15dp"
+        />
+
+
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="maincolor">#0085CF</color>
+    <color name="secendcolor">#999999</color>
+    <color name="titlebar">#0062CC</color>
+    <color name="graycolore">#cccccc</color>
+    <color name="my_bac">#F5F5F9</color>
+    <color name="my_yuancolor">#6db9e3</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="colorPopupBg">#88000000</color>
+    <color name="release_title">#323232</color>
+    <color name="font_black_content">#222222</color>
+    <color name="stand_bg">#fff6f6f6</color>
+    <color name="divide">#ffe4e4e4</color>
+    <color name="white_pressed">#ffd5d5d5</color>
+    <color name="font_black_6">#ff666666</color>
+    <color name="font_gray">#999999</color>
+    <color name="colorRed">#f14848</color>
+</resources>
