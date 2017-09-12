@@ -83,6 +83,14 @@
         <!-- 我的任务 -->
         <activity android:name=".activity.MyTaskActivity" />
 
+        <!--我的收藏-->
+        <activity android:name=".activity.MyCollectionActivity" />
+
+        <!--我的收藏-->
+        <activity android:name=".activity.MyFriendActivity" />
+
+
+
         <activity android:name=".activity.ClueActivity"/>
 
         <!-- 我的赏金 -->

@@ -17,11 +17,12 @@ import com.android.wx.french.api.Helper;
 import com.android.wx.french.api.OnHandleCallback;
 import com.android.wx.french.base.BaseActivity;
 import com.android.wx.french.base.BasePresenter;
+import com.android.wx.french.khc.bean.CollectBean;
+import com.android.wx.french.khc.bean.CollectData;
 import com.android.wx.french.model.GetRewardBean;
 import com.android.wx.french.model.GetRewardData;
-import com.android.wx.french.model.RewardBean;
-import com.android.wx.french.model.RewardData;
 import com.android.wx.french.util.RecycleViewDivider;
+import com.android.wx.french.util.SharePreferenceHelper;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -35,7 +36,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -59,7 +59,9 @@ public class MyCollectionActivity extends BaseActivity implements OnClickItemLis
     RecyclerView rvCollect;
     private ArrayList<GetRewardData> getRewardDatas;
     private LinearLayoutManager mLayoutManager;
+    private int pager;
 
+    protected SharePreferenceHelper sph;
     @Override
     protected BasePresenter createPresenter() {
         return null;
@@ -109,8 +111,8 @@ public class MyCollectionActivity extends BaseActivity implements OnClickItemLis
 
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-//                pager = 1;
-//                getRewardData(refreshLayout, "onRefresh");
+                pager = 1;
+                getRewardData(refreshLayout, "onRefresh");
             }
         });
 
@@ -131,51 +133,20 @@ public class MyCollectionActivity extends BaseActivity implements OnClickItemLis
     }
 
     private void getRewardData(TwinklingRefreshLayout refreshLayout,String pull) {
-        RewardData rewardData = new RewardData();
-//        rewardData.setFbdsr_sfzh(sph.getIdCard());
-        rewardData.setFbdsr_sfzh("");
-        ArrayList<String> cols = new ArrayList<>();
-        cols.add("id");
-        cols.add("type_of_task");
-        cols.add("is_sqgffb");
-        cols.add("is_gyxs");
-        cols.add("type_of_task_mc");
-        cols.add("title");
-        cols.add("reward_details");
-        cols.add("reward_amount");
-        cols.add("type_of_reward");
-        cols.add("hava_been_paid");
-        cols.add("audit_court_status");
-        cols.add("audit_insurer_status");
-        cols.add("bzxr_photo_path");
-        cols.add("task_release_time");
-        cols.add("task_expiration_time");
-        cols.add("task_completion_time");
-        cols.add("the_creat_time");
-        cols.add("bzxr_idcard");
-        cols.add("fbdsr_name");
-        cols.add("fbdsr_sjhm");
-        cols.add("fbdsr_sfzh");
-        cols.add("fb_fymc");
-        cols.add("fb_fybm1");
-        cols.add("fb_fg_name");
-        cols.add("fb_fg_userid");
-        cols.add("js_fymc");
-        cols.add("js_fybm1");
-        cols.add("bzxr_specialty");
-        cols.add("bzxr_dt");
-        cols.add("bzxr_hj");
-        cols.add("task_demand");
-        cols.add("completion_status");
-        cols.add("bzxr_adress");
-        cols.add("bzxr_adress_jwzb");
-        cols.add("bzxlx");
+        sph = SharePreferenceHelper.getInstance(mContext);
+        CollectData collectBean = new CollectData();
+        collectBean.setUser_type(2);
+        collectBean.setUserid(sph.getIdCard());
 
-        RewardBean bean = new RewardBean();
-        bean.setRequestMethod("getTask");
-        bean.setData(rewardData);
+        ArrayList<String> cols = new ArrayList<>();
+        cols.add("flow_with_task_id");
+        cols.add("flow_with_task_title");
+
+        CollectBean bean = new CollectBean();
+        bean.setRequestMethod("getMyAttentionById");
+        bean.setData(collectBean);
         bean.setCols(cols);
-//        bean.setCurPage("" + pager);
+        bean.setCurPage("" + pager);
         bean.setPageSize("20");
 
         RequestParams params = new RequestParams("UTF-8");
@@ -214,7 +185,7 @@ public class MyCollectionActivity extends BaseActivity implements OnClickItemLis
                 if (pull.equals("onRefresh")){
                     refreshLayout.finishRefreshing();
                 }else{
-//                    pager--;
+                    pager--;
                     refreshLayout.finishLoadmore();
                 }
             }

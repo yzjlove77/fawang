@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.wx.french.R;
+import com.android.wx.french.khc.bean.BountyMsg;
+import com.android.wx.french.khc.bean.BountyMsgData;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2017/8/14.
@@ -17,8 +21,11 @@ public class BountyHunterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private LayoutInflater mLayoutInflater;
     private Context context;
+    ArrayList<BountyMsgData> list;
+    BountyMsgData data;
 
-    public BountyHunterAdapter(Context context){
+    public BountyHunterAdapter(Context context, ArrayList<BountyMsgData> list) {
+        this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -32,9 +39,10 @@ public class BountyHunterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        switch (position){
+
+        switch (position) {
             case 0:
-            return ITEM_TYPE.One.ordinal();
+                return ITEM_TYPE.One.ordinal();
         }
         return ITEM_TYPE.Other.ordinal();
     }
@@ -51,34 +59,46 @@ public class BountyHunterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        data = list.get(position);
         if (holder instanceof headViewHolder) {
-//            ((headViewHolder) holder).mTextView.setText(data.get(position).getQuersion());
-        }else{
-
+            ((headViewHolder) holder).mTextName.setText(data.getReport_man_name());
+            ((headViewHolder) holder).mTextMoney.setText(data.getTotalMoney());
+        } else {
+            ((ItemViewHolder) holder).mTextName.setText(data.getReport_man_name());
+            ((ItemViewHolder) holder).mTextMoney.setText(data.getTotalMoney());
+            ((ItemViewHolder) holder).mTextRanking.setText("No." + data.getRanking());
         }
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return list.size();
     }
 
 
     //头布局的ViewHolder
     public static class headViewHolder extends RecyclerView.ViewHolder {
-        TextView mTextView;
+        TextView mTextName;
+        TextView mTextMoney;
+
         public headViewHolder(View itemView) {
             super(itemView);
-//            mTextView = (TextView) itemView.findViewById(R.id.tv_name);
+            mTextName = (TextView) itemView.findViewById(R.id.tv_name);
+            mTextMoney = (TextView) itemView.findViewById(R.id.tv_money);
         }
     }
 
     //普通item的ViewHolder
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        TextView mTextView;
+        TextView mTextName;
+        TextView mTextMoney;
+        TextView mTextRanking;
+
         public ItemViewHolder(View itemView) {
             super(itemView);
-//            mTextView = (TextView) itemView.findViewById(R.id.tv_text);
+            mTextName = (TextView) itemView.findViewById(R.id.tv_name);
+            mTextMoney = (TextView) itemView.findViewById(R.id.tv_money);
+            mTextRanking = (TextView) itemView.findViewById(R.id.tv_ranking);
         }
     }
 

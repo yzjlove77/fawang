@@ -1,242 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <include layout="@layout/titlebar_layout"/>
+    <include layout="@layout/titlebar_layout" />
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:tr_enable_overscroll="true"
-        app:tr_enable_refresh="false"
-        app:tr_enable_loadmore="false"
-        app:theme="@style/AppTheme"
         android:layout_marginBottom="50dp"
-        >
+        app:theme="@style/AppTheme"
+        app:tr_enable_loadmore="false"
+        app:tr_enable_overscroll="true"
+        app:tr_enable_refresh="false">
 
         <ScrollView
-            android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@color/maincolor"
-        android:layout_width="match_parent"
-        android:layout_height="150dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@color/maincolor"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-        <com.android.wx.french.util.CircleImageView
-            android:id="@+id/my_photo_img"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/phb_yuan"
-            app:civ_border_width="6dp"
-            app:civ_border_color="@color/my_yuancolor"
-            />
+                    <com.android.wx.french.util.CircleImageView
+                        android:id="@+id/my_photo_img"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/phb_yuan"
+                        app:civ_border_color="@color/my_yuancolor"
+                        app:civ_border_width="6dp" />
 
-        <TextView
-            android:id="@+id/my_dengji_tv"
-            android:gravity="center"
-            android:text="LV2"
-            android:layout_marginTop="-15dp"
-            android:background="@drawable/my_dengji"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/my_dengji_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-15dp"
+                        android:background="@drawable/my_dengji"
+                        android:gravity="center"
+                        android:text="LV2" />
 
-<TextView
-    android:id="@+id/my_name_tv"
-    android:layout_marginTop="10dp"
-    android:textColor="@color/white"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"
-    android:text="荣阿花"/>
-
+                    <TextView
+                        android:id="@+id/my_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="荣阿花"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
 
+                </LinearLayout>
 
+                <Button
+                    android:id="@+id/my_renwu_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/my_jiantou"
+                    android:drawablePadding="15dp"
+                    android:drawableStart="@drawable/my_renwu"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/my_renwu" />
 
-    </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:layout_marginLeft="13dp"
+                    android:background="@color/secendcolor" />
 
-    <Button
-        android:id="@+id/my_renwu_btn"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:drawableEnd="@drawable/my_jiantou"
-        android:drawablePadding="15dp"
-        android:drawableStart="@drawable/my_renwu"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:text="@string/my_renwu" />
+                <Button
+                    android:id="@+id/my_fabu_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/my_jiantou"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/my_dongtai"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/my_fabu" />
 
-    <View
-        android:layout_marginLeft="13dp"
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:layout_marginLeft="13dp"
+                    android:background="@color/secendcolor" />
 
-    <Button
-        android:id="@+id/my_fabu_btn"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@null"
-        android:drawableEnd="@drawable/my_jiantou"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/my_dongtai"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:text="@string/my_fabu" />
+                <Button
+                    android:id="@+id/my_jubao_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/my_jiantou"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/my_jubao"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/my_jubao" />
 
-    <View
-        android:layout_marginLeft="13dp"
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:background="@color/secendcolor" />
 
-    <Button
-        android:id="@+id/my_jubao_btn"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@null"
-        android:drawableEnd="@drawable/my_jiantou"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/my_jubao"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:text="@string/my_jubao" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/my_bac" />
 
-    <View
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:background="@color/secendcolor" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/my_bac"/>
-    <View
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
+                <Button
+                    android:id="@+id/my_love_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/my_jiantou"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/my_love"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/my_shoucang" />
 
-    <Button
-        android:id="@+id/my_love_btn"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@null"
-        android:drawableEnd="@drawable/my_jiantou"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/my_love"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:text="@string/my_shoucang" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:layout_marginLeft="13dp"
+                    android:background="@color/secendcolor" />
 
-    <View
-        android:layout_marginLeft="13dp"
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
-    <Button
-        android:id="@+id/my_pingjia_btn"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@null"
-        android:drawableEnd="@drawable/my_jiantou"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/my_pingjia"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:text="@string/my_pignjia" />
+                <Button
+                    android:id="@+id/my_pingjia_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/my_jiantou"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/my_pingjia"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/my_pignjia" />
 
-    <View
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/my_bac"/>
-    <View
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:background="@color/secendcolor" />
 
-    <Button
-        android:id="@+id/my_money_btn"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@null"
-        android:drawableEnd="@drawable/my_jiantou"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/my_shanjin"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:text="@string/my_shangjin" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/my_bac" />
 
-    <View
-        android:layout_marginLeft="13dp"
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
-    <Button
-        android:id="@+id/my_pengyq_btn"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@null"
-        android:drawableEnd="@drawable/my_jiantou"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/my_pengyq"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:text="@string/my_pegnyouquan" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:background="@color/secendcolor" />
 
-    <View
-        android:layout_marginLeft="13dp"
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
-    <Button
-        android:id="@+id/my_moneyphb_btn"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@null"
-        android:drawableEnd="@drawable/my_jiantou"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/my_paihb"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="15dp"
-        android:text="@string/my_sjlrpaihang" />
+                <Button
+                    android:id="@+id/my_money_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/my_jiantou"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/my_shanjin"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/my_shangjin" />
 
-    <View
-        android:layout_width="match_parent"
-        android:background="@color/secendcolor"
-        android:layout_height="@dimen/viewdip"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:layout_marginLeft="13dp"
+                    android:background="@color/secendcolor" />
+
+                <Button
+                    android:id="@+id/my_friend_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/my_jiantou"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/my_pengyq"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/my_friend" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:layout_marginLeft="13dp"
+                    android:background="@color/secendcolor" />
+
+                <Button
+                    android:id="@+id/my_pengyq_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/my_jiantou"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/my_pengyq"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/my_pegnyouquan" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:layout_marginLeft="13dp"
+                    android:background="@color/secendcolor" />
+
+                <Button
+                    android:id="@+id/my_moneyphb_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/my_jiantou"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/my_paihb"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/my_sjlrpaihang" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/viewdip"
+                    android:background="@color/secendcolor" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:background="@color/my_bac"/>
+                    android:background="@color/my_bac" />
 
             </LinearLayout>
         </ScrollView>

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.android.wx.french.R;
 import com.android.wx.french.activity.BountyHunterActivity;
+import com.android.wx.french.activity.MyCollectionActivity;
+import com.android.wx.french.activity.MyFriendActivity;
 import com.android.wx.french.activity.MyMoneyActivity;
 import com.android.wx.french.activity.MyTaskActivity;
 import com.android.wx.french.activity.MyTheyActivity;
@@ -32,6 +34,7 @@ public class PersonalFgPresenter extends BasePresenter<PersonalFgView> {
     private Button renwuBtn;
     private Button jubaoBtn;
     private Button loveBtn;
+    private Button friendBtn;
     private Button pingjiaBtn;
     private Button moneyBtn;
     private Button pyqBtn;
@@ -59,6 +62,8 @@ public class PersonalFgPresenter extends BasePresenter<PersonalFgView> {
             renwuBtn = personalFgView.getMyRenwu();
             moneyBtn = personalFgView.getMyMoney();
             pingjiaBtn = personalFgView.getMyPingjia();
+            loveBtn = personalFgView.getMyLove();
+            friendBtn = personalFgView.getMyFriend();
 
             leftImage.setImageResource(R.drawable.my_setting);
             titleNamel.setText(R.string.my);
@@ -72,8 +77,9 @@ public class PersonalFgPresenter extends BasePresenter<PersonalFgView> {
             jubaoBtn.setOnClickListener(listener);
             pingjiaBtn.setOnClickListener(listener);
             renwuBtn.setOnClickListener(listener);
+            friendBtn.setOnClickListener(listener);
             moneyBtn.setOnClickListener(listener);
-
+            loveBtn.setOnClickListener(listener);
         }
     }
 
@@ -109,6 +115,14 @@ public class PersonalFgPresenter extends BasePresenter<PersonalFgView> {
 
                 case R.id.my_money_btn:
                     context.startActivity(new Intent(context, MyMoneyActivity.class));
+                    break;
+
+                case R.id.my_love_btn:
+                    context.startActivity(new Intent(context, MyCollectionActivity.class));
+                    break;
+
+                case R.id.my_friend_btn:
+                    context.startActivity(new Intent(context, MyFriendActivity.class));
                     break;
 
             }
