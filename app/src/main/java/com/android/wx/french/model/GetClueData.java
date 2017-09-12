@@ -1,10 +1,12 @@
 package com.android.wx.french.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/9/11.
  */
 
-public class GetClueData {
+public class GetClueData implements Serializable{
 
 
     /**

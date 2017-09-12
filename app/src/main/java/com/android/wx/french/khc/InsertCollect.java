@@ -36,6 +36,7 @@ public class InsertCollect {
     public void insertCollect(String title,int id) {
         sph = SharePreferenceHelper.getInstance(context);
 
+        //收藏接口还没出来，接口调错了，调成关注了
         InsertCollectData insertCollectData = new InsertCollectData();
         insertCollectData.setUser_type(2);
         insertCollectData.setUserid(sph.getPhone());

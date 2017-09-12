@@ -44,4 +44,10 @@
         <!--<item name="android:background">@drawable/bt_blue_to_litter</item>-->
     </style>
 
+
+    <style name="CheckBoxStyle">
+        <!--选中的颜色-->
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 </resources>

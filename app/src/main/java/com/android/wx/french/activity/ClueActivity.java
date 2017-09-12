@@ -1,5 +1,7 @@
 package com.android.wx.french.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -7,6 +9,7 @@ import android.widget.TextView;
 
 import com.android.wx.french.R;
 import com.android.wx.french.adapter.ClueAdapter;
+import com.android.wx.french.adapter.OnClickItemListener;
 import com.android.wx.french.base.BaseActivity;
 import com.android.wx.french.model.ClueBean;
 import com.android.wx.french.model.ClueData;
@@ -14,6 +17,8 @@ import com.android.wx.french.model.GetClueData;
 import com.android.wx.french.presenter.CluePresenter;
 import com.android.wx.french.util.RecycleViewDivider;
 import com.android.wx.french.view.IClueView;
+import com.android.wx.french.widget.popupwindow.PopupWindowClueSubmit;
+import com.android.wx.french.widget.popupwindow.PopupWindowDistribution;
 
 import java.util.ArrayList;
 
@@ -25,7 +30,7 @@ import butterknife.OnClick;
  * 提供线索
  */
 
-public class ClueActivity extends BaseActivity<IClueView, CluePresenter> implements IClueView {
+public class ClueActivity extends BaseActivity<IClueView, CluePresenter> implements IClueView, OnClickItemListener {
 
     @Bind(R.id.titlebar_name)
     TextView titleTitle;
@@ -36,6 +41,8 @@ public class ClueActivity extends BaseActivity<IClueView, CluePresenter> impleme
     private ArrayList<GetClueData> clueDatas;
     private ClueAdapter clueAdapter;
     private int pager = 1;
+    private PopupWindowClueSubmit popupSubmit;
+    private PopupWindowDistribution popupDistribution;
 
     @Override
     protected CluePresenter createPresenter() {
@@ -55,6 +62,7 @@ public class ClueActivity extends BaseActivity<IClueView, CluePresenter> impleme
         clueDatas = new ArrayList<>();
         clueAdapter = new ClueAdapter(mContext, clueDatas);
         clueRecycler.setAdapter(clueAdapter);
+        clueAdapter.setOnClickItemListener(this);
     }
 
     @Override
@@ -108,5 +116,43 @@ public class ClueActivity extends BaseActivity<IClueView, CluePresenter> impleme
     @Override
     public void failedViewClue(String msg) {
 
+    }
+
+    @Override
+    public void onClickItem(View view, int position) {
+        switch (view.getId()) {
+            case R.id.item_clue_layout:
+                GetClueData getClueData = clueDatas.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("clueData", getClueData);
+                startActivity(new Intent(mContext, ClueDetailActivity.class)
+                        .putExtras(bundle));
+                break;
+            //提交
+            case R.id.item_clue_btn:
+                showSubimtPopup(clueDatas.get(position));
+                break;
+            //分配
+            case R.id.item_distribution_btn:
+                showDistributionPopup(clueDatas.get(position));
+                break;
+        }
+    }
+
+    private void showSubimtPopup(GetClueData clueData) {
+        if (popupSubmit == null) {
+            popupSubmit = new PopupWindowClueSubmit(mContext);
+        }
+        popupSubmit.setTaskId(clueData.getId());
+        popupSubmit.setCourtCode(sph.getCourtCode());
+        popupSubmit.showPopupWindow();
+    }
+
+    private void showDistributionPopup(GetClueData clueData) {
+        if (popupDistribution == null) {
+            popupDistribution = new PopupWindowDistribution(mContext);
+        }
+        popupDistribution.setTaskId(clueData.getId());
+        popupDistribution.showPopupWindow();
     }
 }

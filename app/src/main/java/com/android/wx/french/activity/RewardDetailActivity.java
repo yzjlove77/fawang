@@ -13,6 +13,7 @@ import com.android.wx.french.adapter.RewardDetailAdapter;
 import com.android.wx.french.base.BaseActivity;
 import com.android.wx.french.khc.pro.IInsertCollect;
 import com.android.wx.french.khc.InsertCollect;
+import com.android.wx.french.events.DoCommentEvent;
 import com.android.wx.french.model.CommentBean;
 import com.android.wx.french.model.CommentData;
 import com.android.wx.french.model.GetCommentData;
@@ -20,6 +21,11 @@ import com.android.wx.french.model.GetRewardData;
 import com.android.wx.french.presenter.CommentPresenter;
 import com.android.wx.french.util.RecycleViewDivider;
 import com.android.wx.french.view.ICommentView;
+import com.android.wx.french.widget.popupwindow.PopupWindowComment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -38,6 +44,7 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
     private RewardDetailAdapter adapter;
     private ArrayList<GetCommentData> commentDatas;
     private int pager = 1;
+    private PopupWindowComment popupComment;
 
     InsertCollect insertCollect;
     @Override
@@ -56,23 +63,23 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
         titleTitle.setText("详情页");
         insertCollect = new InsertCollect(this,this);
 
+        EventBus.getDefault().register(this);
         layoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new RecycleViewDivider(mContext, LinearLayout.HORIZONTAL));
         commentDatas = new ArrayList<>();
         adapter = new RewardDetailAdapter(mContext, commentDatas);
         mRecyclerView.setAdapter(adapter);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        rewardData = (GetRewardData) bundle.getSerializable("rewardData");
+        adapter.setRewardData(rewardData);
+        mPresenter.init();
     }
 
     @Override
     protected void initData() {
         super.initData();
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        rewardData = (GetRewardData) bundle.getSerializable("rewardData");
-        adapter.setRewardData(rewardData);
-
-        mPresenter.init();
         CommentData data = new CommentData();
         data.setFbsqr_contentid(rewardData.getId());
 
@@ -95,7 +102,12 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
         mPresenter.getCommentData(bean);
     }
 
-    @OnClick({R.id.titlebar_left, R.id.reward_detail_report,R.id.bt_collect})
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(DoCommentEvent event) {
+        initData();
+    }
+
+    @OnClick({R.id.titlebar_left, R.id.reward_detail_report, R.id.reward_detail_comment,R.id.bt_collect})
     public void onClickBk(View view) {
         switch (view.getId()) {
             case R.id.titlebar_left:
@@ -109,14 +121,25 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
+
             case R.id.bt_collect:
                 insertCollect.insertCollect(rewardData.getTitle(),1);
+            //评论
+            case R.id.reward_detail_comment:
+                if (popupComment == null) {
+                    popupComment = new PopupWindowComment(mContext);
+                }
+                popupComment.setName(sph.getName());
+                popupComment.setTitle(rewardData.getTitle());
+                popupComment.setTaskId(rewardData.getId());
+                popupComment.showPopupWindow();
                 break;
         }
     }
 
     @Override
     public void showViewComment(ArrayList<GetCommentData> commentDatas) {
+        this.commentDatas.clear();
         this.commentDatas.addAll(commentDatas);
         adapter.notifyDataSetChanged();
     }
@@ -133,6 +156,11 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
 
     @Override
     public void failureInsertCollect(String msg) {
-        showToast("收藏失败！"+msg);
+        showToast("收藏失败！" + msg);
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

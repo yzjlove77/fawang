@@ -2,13 +2,13 @@ package com.android.wx.french.presenter;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.android.wx.french.api.Helper;
 import com.android.wx.french.api.OnHandleCallback;
 import com.android.wx.french.base.BasePresenter;
 import com.android.wx.french.model.CommentBean;
 import com.android.wx.french.model.GetCommentBean;
+import com.android.wx.french.util.MLog;
 import com.android.wx.french.view.ICommentView;
 import com.google.gson.Gson;
 import com.lidroid.xutils.http.RequestParams;
@@ -41,11 +41,11 @@ public class CommentPresenter extends BasePresenter<ICommentView> {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        Log.i("---vi---",new Gson().toJson(bean));
+        MLog.mLog("send : " + new Gson().toJson(bean));
         Helper.Post(Helper.getListGrid, params, new OnHandleCallback() {
             @Override
             public void onSuccess(String json) {
-                Log.i("---json---",json);
+                MLog.mLog("getCommentData json : " + json);
                 GetCommentBean getCommentBean = Helper.jsonToBean(json, GetCommentBean.class);
                 if (TextUtils.equals("true", getCommentBean.getSuccess())) {
                     commentView.showViewComment(getCommentBean.getData());

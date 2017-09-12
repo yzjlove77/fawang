@@ -207,14 +207,22 @@
                 android:text="上传图片"
                 android:textColor="@color/release_title" />
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/editext_bac"
                 android:hint="可添加被执行人图片"
-                android:paddingLeft="3dp"
-                android:textCursorDrawable="@drawable/course_bac" />
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:paddingLeft="3dp" >
+
+                <ImageView
+                    android:id="@+id/release_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/home_addphoto"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"

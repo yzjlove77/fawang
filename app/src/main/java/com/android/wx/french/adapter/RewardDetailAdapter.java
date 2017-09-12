@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.android.wx.french.R;
 import com.android.wx.french.model.GetCommentData;
 import com.android.wx.french.model.GetRewardData;
+import com.android.wx.french.util.CircleImageView;
+import com.android.wx.french.util.MLog;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -74,6 +76,7 @@ public class RewardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     headHolder.finishTimeTv.setText(rewardData.getTask_expiration_time());
                     headHolder.addressTv.setText(rewardData.getBzxr_hj());
                     String photoPath = rewardData.getBzxr_photo_path();
+                    MLog.mLog("photoPath = " + photoPath);
                     if (!TextUtils.isEmpty(photoPath)) {
                         Glide.with(mContext)
                                 .load(photoPath)
@@ -83,13 +86,17 @@ public class RewardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
                 break;
             case ITEM_TYPE_NORMAL:
+                NormalHolder normalHolder = (NormalHolder) holder;
+                GetCommentData getCommentData = list.get(position - 1);
+                normalHolder.nicknameTv.setText(getCommentData.getFbsqr_name());
+                normalHolder.contentTv.setText(getCommentData.getFbsqr_comment());
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return list != null ? list.size() + 10 : 1;
+        return list != null ? list.size() + 1 : 1;
     }
 
     @Override
@@ -102,6 +109,15 @@ public class RewardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public static class NormalHolder extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.item_comment_icon)
+        CircleImageView icon;
+        @Bind(R.id.item_comment_time)
+        TextView timeTv;
+        @Bind(R.id.item_comment_nickname)
+        TextView nicknameTv;
+        @Bind(R.id.item_comment_content)
+        TextView contentTv;
 
         public NormalHolder(View itemView) {
             super(itemView);

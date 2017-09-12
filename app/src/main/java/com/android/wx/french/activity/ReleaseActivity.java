@@ -1,9 +1,19 @@
 package com.android.wx.french.activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -18,10 +28,15 @@ import com.android.wx.french.model.JsonBean;
 import com.android.wx.french.model.ReleaseBean;
 import com.android.wx.french.model.ReleaseData;
 import com.android.wx.french.presenter.ReleasePresenter;
+import com.android.wx.french.util.AbsolutePathUtil;
 import com.android.wx.french.util.GetJsonDataUtil;
+import com.android.wx.french.util.MLog;
+import com.android.wx.french.util.PermissionHelper;
 import com.android.wx.french.util.SelectPhotoUtils;
 import com.android.wx.french.view.IReleaseView;
+import com.android.wx.french.widget.popupwindow.PopupWindowPhoto;
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
@@ -29,11 +44,14 @@ import com.jzxiang.pickerview.listener.OnDateSetListener;
 
 import org.json.JSONArray;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.Bind;
+
+import static com.android.wx.french.widget.popupwindow.PopupWindowPhoto.TAKE_PICTURE;
 
 /**
  * Created by wxZhang on 2017/8/11.
@@ -76,6 +94,8 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
     EditText detailEt;
     @Bind(R.id.release_idcard)
     EditText idcardEt;
+    @Bind(R.id.release_image)
+    ImageView releaseIv;
     @Bind(R.id.release_btn)
     Button releaseBtn;
 
@@ -97,6 +117,8 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
 
+    private Uri imageUri;
+    private String imagePath;
     private Thread thread;
     private static final int MSG_LOAD_DATA = 0x0001;
     private static final int MSG_LOAD_SUCCESS = 0x0002;
@@ -151,6 +173,7 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
         rewardTypeThree.setOnClickListener(this);
         rewardTypeFour.setOnClickListener(this);
         typeRg.setOnCheckedChangeListener(this);
+        releaseIv.setOnClickListener(this);
     }
 
     @Override
@@ -295,13 +318,109 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                 data.setFbdsr_sfzh(sph.getIdCard());
                 data.setBzxlx(releaseType);
                 data.setBzxr_adress(address);
+                if (!TextUtils.isEmpty(imagePath)) {
+                    data.setBzxr_photo_path(imagePath);
+                }
 
                 ReleaseBean bean = new ReleaseBean();
                 bean.setRequestMethod("insertTaskByDsr");
                 bean.setData(data);
                 mPresenter.release(bean);
                 break;
+            case R.id.release_image:
+                boolean permission = PermissionHelper.getInstance(mContext).isPermission(mContext,
+                        new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, PermissionHelper.PERMISSION_PHOTO);
+                MLog.mLog("permission = " + permission);
+                if (permission) {
+                    startCamera();
+                }
+                break;
         }
+    }
+
+    private void startCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        String sdcardState = Environment.getExternalStorageState();
+        String sdcardPathDir = Environment.getExternalStorageDirectory().getPath() + "/French/temp/tempImage/";
+        File file = null;
+        if (Environment.MEDIA_MOUNTED.endsWith(sdcardState)) {
+            // 有sd卡，是否有myImage文件夹
+            File fileDir = new File(sdcardPathDir);
+            if (!fileDir.exists()) {
+                fileDir.mkdirs();
+            }
+            // 是否有headImg文件s
+            file = new File(sdcardPathDir + System.currentTimeMillis()
+                    + ".JPEG");
+        }
+        if (file != null) {
+            imageUri = Uri.fromFile(file);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            mContext.startActivityForResult(cameraIntent, TAKE_PICTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PopupWindowPhoto.TAKE_PICTURE://拍照
+                if (RESULT_OK == resultCode) {
+                    imagePath = AbsolutePathUtil.getAbsolutePath(this, imageUri);
+                    Glide.with(mContext)
+                            .load(imagePath)
+                            .into(releaseIv);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PermissionHelper.PERMISSION_PHOTO:
+                if (PackageManager.PERMISSION_GRANTED == grantResults[0]) {
+                    startCamera();
+                } else {
+                    showMissingPermissionDialog();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    protected void showMissingPermissionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage("缺少权限，快去设置吧");
+
+        // 拒绝, 退出应用
+        builder.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+
+        builder.setPositiveButton("设置",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startAppSettings();
+                    }
+                });
+
+        builder.setCancelable(false);
+
+        builder.show();
+    }
+
+    protected void startAppSettings() {
+        Intent intent = new Intent(
+                Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + getPackageName()));
+        startActivity(intent);
     }
 
     private void getSelectTime() {

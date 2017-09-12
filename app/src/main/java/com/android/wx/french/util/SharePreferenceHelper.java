@@ -60,4 +60,12 @@ public class SharePreferenceHelper {
     public void setNickname(String nickname) {
         sp.edit().putString("nickname", nickname).commit();
     }
+
+    //保存法院代码
+    public String getCourtCode() {
+        return sp.getString("court_code", "");
+    }
+    public void setCourtCode(String courtCode) {
+        sp.edit().putString("court_code", courtCode).commit();
+    }
 }
