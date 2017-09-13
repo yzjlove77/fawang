@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.android.wx.french.R;
 import com.android.wx.french.adapter.RewardDetailAdapter;
 import com.android.wx.french.base.BaseActivity;
+import com.android.wx.french.khc.pro.IInsertCollect;
+import com.android.wx.french.khc.InsertCollect;
 import com.android.wx.french.events.DoCommentEvent;
 import com.android.wx.french.model.CommentBean;
 import com.android.wx.french.model.CommentData;
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPresenter> implements ICommentView{
+public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPresenter> implements ICommentView,IInsertCollect{
 
     @Bind(R.id.titlebar_name)
     TextView titleTitle;
@@ -44,6 +46,7 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
     private int pager = 1;
     private PopupWindowComment popupComment;
 
+    InsertCollect insertCollect;
     @Override
     protected CommentPresenter createPresenter() {
         return new CommentPresenter(mContext);
@@ -58,6 +61,8 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
     protected void initView() {
         super.initView();
         titleTitle.setText("详情页");
+        insertCollect = new InsertCollect(this,this);
+
         EventBus.getDefault().register(this);
         layoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -102,7 +107,7 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
         initData();
     }
 
-    @OnClick({R.id.titlebar_left, R.id.reward_detail_report, R.id.reward_detail_comment})
+    @OnClick({R.id.titlebar_left, R.id.reward_detail_report, R.id.reward_detail_comment,R.id.bt_collect})
     public void onClickBk(View view) {
         switch (view.getId()) {
             case R.id.titlebar_left:
@@ -116,6 +121,9 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
+
+            case R.id.bt_collect:
+                insertCollect.insertCollect(rewardData.getTitle(),1);
             //评论
             case R.id.reward_detail_comment:
                 if (popupComment == null) {
@@ -142,6 +150,15 @@ public class RewardDetailActivity extends BaseActivity<ICommentView, CommentPres
     }
 
     @Override
+    public void successInsertCollect() {
+        showToast("收藏成功！");
+    }
+
+    @Override
+    public void failureInsertCollect(String msg) {
+        showToast("收藏失败！" + msg);
+    }
+
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);

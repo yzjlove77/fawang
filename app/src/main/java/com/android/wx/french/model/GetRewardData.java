@@ -81,6 +81,47 @@ public class GetRewardData implements Serializable {
     private String bzxlx;
     private String audit_status;
 
+    @Override
+    public String toString() {
+        return "GetRewardData{" +
+                "xh='" + xh + '\'' +
+                ", is_gyxs='" + is_gyxs + '\'' +
+                ", reward_details='" + reward_details + '\'' +
+                ", type_of_reward='" + type_of_reward + '\'' +
+                ", id='" + id + '\'' +
+                ", type_of_task='" + type_of_task + '\'' +
+                ", title='" + title + '\'' +
+                ", bzxr_dt='" + bzxr_dt + '\'' +
+                ", fb_fg_name='" + fb_fg_name + '\'' +
+                ", task_completion_time='" + task_completion_time + '\'' +
+                ", the_creat_time='" + the_creat_time + '\'' +
+                ", js_fybm1='" + js_fybm1 + '\'' +
+                ", bzxr_hj='" + bzxr_hj + '\'' +
+                ", bzxr_adress_jwzb='" + bzxr_adress_jwzb + '\'' +
+                ", bzxr_photo_path='" + bzxr_photo_path + '\'' +
+                ", fbdsr_name='" + fbdsr_name + '\'' +
+                ", fb_fg_userid='" + fb_fg_userid + '\'' +
+                ", type_of_task_mc='" + type_of_task_mc + '\'' +
+                ", fb_fybm1='" + fb_fybm1 + '\'' +
+                ", completion_status='" + completion_status + '\'' +
+                ", bzxr_adress='" + bzxr_adress + '\'' +
+                ", task_expiration_time='" + task_expiration_time + '\'' +
+                ", is_sqgffb='" + is_sqgffb + '\'' +
+                ", reward_amount='" + reward_amount + '\'' +
+                ", js_fymc='" + js_fymc + '\'' +
+                ", bzxr_idcard='" + bzxr_idcard + '\'' +
+                ", hava_been_paid='" + hava_been_paid + '\'' +
+                ", fbdsr_sjhm='" + fbdsr_sjhm + '\'' +
+                ", bzxr_specialty='" + bzxr_specialty + '\'' +
+                ", fbdsr_sfzh='" + fbdsr_sfzh + '\'' +
+                ", task_demand='" + task_demand + '\'' +
+                ", task_release_time='" + task_release_time + '\'' +
+                ", fb_fymc='" + fb_fymc + '\'' +
+                ", bzxlx='" + bzxlx + '\'' +
+                ", audit_status='" + audit_status + '\'' +
+                '}';
+    }
+
     public String getBzxr_adress_jwzb() {
         return bzxr_adress_jwzb;
     }

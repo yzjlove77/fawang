@@ -23,6 +23,7 @@ public interface PersonalFgView extends TitleBarView{
     Button getMyMoney();
     Button getMyPengyq();
     Button getMyMoneyPhb();
+    Button getMyFriend();
 
 
 }

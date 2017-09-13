@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="提示"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/dialog_content"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text=""
+        android:textSize="14dp"
+        android:textColor="@color/colorPopupBg"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+
+        <Button
+            style="@style/DialogExit"
+            android:id="@+id/dialog_exit"
+            android:text="确认" />
+
+        <Button
+            style="@style/DialogCancel"
+            android:id="@+id/dialog_cancel"
+            android:text="取消" />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
