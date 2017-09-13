@@ -127,7 +127,9 @@ public class AlbumActivity extends BaseActivity {
                 if (selectedAlbums.size() == 0) {
                     Toast.makeText(this, "请选择要发送的图片", Toast.LENGTH_SHORT).show();
                 } else {
-                    EventBus.getDefault().post(new AlbumSelectEvent(selectedAlbums));
+                    AlbumSelectEvent event = new AlbumSelectEvent(selectedAlbums);
+                    event.setType(startType);
+                    EventBus.getDefault().post(event);
                     finish();
                 }
                 break;

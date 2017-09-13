@@ -15,7 +15,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,12 +25,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.wx.french.R;
+import com.android.wx.french.api.Helper;
+import com.android.wx.french.api.OnHandleCallback;
 import com.android.wx.french.base.BaseActivity;
+import com.android.wx.french.model.CourtNamebean;
 import com.android.wx.french.model.JsonBean;
 import com.android.wx.french.model.ReleaseBean;
 import com.android.wx.french.model.ReleaseData;
 import com.android.wx.french.presenter.ReleasePresenter;
 import com.android.wx.french.util.AbsolutePathUtil;
+import com.android.wx.french.util.CourtNameListPopWin;
 import com.android.wx.french.util.GetJsonDataUtil;
 import com.android.wx.french.util.MLog;
 import com.android.wx.french.util.PermissionHelper;
@@ -41,13 +47,18 @@ import com.google.gson.Gson;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.lidroid.xutils.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -98,6 +109,10 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
     ImageView releaseIv;
     @Bind(R.id.release_btn)
     Button releaseBtn;
+    @Bind(R.id.select_court_tv)
+    TextView mCourtTv;
+
+    private String fybm,courtName,lng,lat;
 
 
     /**
@@ -174,6 +189,7 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
         rewardTypeFour.setOnClickListener(this);
         typeRg.setOnCheckedChangeListener(this);
         releaseIv.setOnClickListener(this);
+        mCourtTv.setOnClickListener(this);
     }
 
     @Override
@@ -240,6 +256,8 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                 break;
             //发布
             case R.id.release_btn:
+
+
                 String title = titleEt.getText().toString().trim();
                 if (TextUtils.isEmpty(title)) {
                     showToast("请输入悬赏标题");
@@ -269,6 +287,10 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                     showToast("请填写任务详情");
                     return;
                 }
+                if (TextUtils.isEmpty(mCourtTv.getText().toString())) {
+                    showToast("请选择法院");
+                    return;
+                }
                 String time = selectTime.getText().toString().trim();
                 if (TextUtils.isEmpty(time)) {
                     showToast("请选择时间");
@@ -284,6 +306,32 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                     showToast("请输入详细地址");
                     return;
                 }
+
+                RequestParams params = new RequestParams();
+                params.addQueryStringParameter("address",address);
+                params.addQueryStringParameter("output","json");
+                params.addQueryStringParameter("key","37492c0ee6f924cb5e934fa08c6b1676");
+                Helper.Get("http://api.map.baidu.com/geocoder?", params, new OnHandleCallback() {
+                    @Override
+                    public void onSuccess(String json) {
+                        Log.i("--la--",json);
+                        try {
+                            JSONObject js = new JSONObject(json);
+                            JSONObject ob = new JSONObject(js.getString("result"));
+                            JSONObject jb = new JSONObject(ob.getString("location"));
+                             lat = jb.getString("lat");
+                            lng = jb.getString("lng");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String json) {
+
+                    }
+                });
+
                 String idcard = idcardEt.getText().toString().trim();
                 if (TextUtils.isEmpty(idcard)) {
                     showToast("请输入被执行人身份证");
@@ -301,6 +349,7 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                         return;
                     }
                 }
+
                 ReleaseData data = new ReleaseData();
                 data.setTitle(title);
                 data.setBzxr_specialty(personalInfo);
@@ -312,6 +361,8 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                 data.setReward_amount(reward);
                 data.setType_of_reward(rewardType);
                 data.setBzxr_hj(city);
+                data.setJs_fybm1(fybm);
+                data.setJs_fymc(courtName);
                 data.setBzxr_idcard(idcard);
                 data.setFbdsr_name(sph.getName());
                 data.setFbdsr_sjhm(sph.getPhone());
@@ -321,12 +372,14 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                 if (!TextUtils.isEmpty(imagePath)) {
                     data.setBzxr_photo_path(imagePath);
                 }
-
+                data.setBzxr_adress_lat(lat);
+                data.setBzxr_adress_lng(lng);
                 ReleaseBean bean = new ReleaseBean();
                 bean.setRequestMethod("insertTaskByDsr");
                 bean.setData(data);
                 mPresenter.release(bean);
                 break;
+
             case R.id.release_image:
                 boolean permission = PermissionHelper.getInstance(mContext).isPermission(mContext,
                         new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, PermissionHelper.PERMISSION_PHOTO);
@@ -334,6 +387,28 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                 if (permission) {
                     startCamera();
                 }
+                break;
+
+            case R.id.select_court_tv:
+
+                final List<CourtNamebean.CourtName> beanlists = new LinkedList<>();
+                final CourtNameListPopWin cou = new CourtNameListPopWin(ReleaseActivity.this, beanlists);
+                cou.showPopupWindow(titleTv);
+                cou.setDismissPop(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        cou.dismiss();
+                    }
+                });
+                cou.setmRightListViewOnItem(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        fybm = beanlists.get(i).fybm;
+                        courtName = beanlists.get(i).fymc;
+                        mCourtTv.setText(beanlists.get(i).fymc);
+                        cou.dismiss();//取消对话框
+                    }
+                });
                 break;
         }
     }
@@ -480,7 +555,7 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                     .setBgColor(Color.WHITE)//滚轮背景颜色 Night mode
                     .setContentTextSize(18)//滚轮文字大小
 //                    .setLinkage(true)//设置是否联动，默认true
-                    .setLabels("省", "市", "区")//设置选择的三级单位
+//                    .setLabels("省", "市", "区")//设置选择的三级单位
                     .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                     .setCyclic(false, false, false)//循环与否
 //                    .setSelectOptions(1, 1, 1)  //设置默认选中项

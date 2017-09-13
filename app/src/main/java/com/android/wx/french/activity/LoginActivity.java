@@ -54,6 +54,8 @@ public class LoginActivity extends BaseActivity<LoginView,LoginPresenter> implem
         mPresenter.LoginBtn();
 //        mPresenter.testRequest();
         idCardEt.setText(sph.getIdCard());
+        idCardEt.setSelection(idCardEt.getText().length());
+
     }
 
     @OnClick({R.id.login_register})

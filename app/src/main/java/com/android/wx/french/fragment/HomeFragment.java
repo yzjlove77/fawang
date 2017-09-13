@@ -26,6 +26,7 @@ import com.android.wx.french.custom.DropdownItemObject;
 import com.android.wx.french.custom.DropdownListView;
 import com.android.wx.french.model.GetRewardBean;
 import com.android.wx.french.model.GetRewardData;
+import com.android.wx.french.model.NearDatabean;
 import com.android.wx.french.model.RewardBean;
 import com.android.wx.french.model.RewardData;
 import com.android.wx.french.presenter.HomeFgPresenter;
@@ -50,7 +51,7 @@ import butterknife.Bind;
 /**
  * Created by wxZhang on 2017/8/9.
  * 首页
- * https://juejin.im/post/58b8b4fd8d6d8100652dc20f 轮播图
+ *
  */
 
 public class HomeFragment extends BaseFragment<HomeFgView,HomeFgPresenter> implements HomeFgView, HomeAdapter.OnClickItemListener {
@@ -149,6 +150,7 @@ public class HomeFragment extends BaseFragment<HomeFgView,HomeFgPresenter> imple
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         adapter.setOnClickItemListener(this);
+
     }
 
     private void setRefreshLayouts() {
@@ -207,7 +209,8 @@ public class HomeFragment extends BaseFragment<HomeFgView,HomeFgPresenter> imple
         cols.add("task_demand");
         cols.add("completion_status");
         cols.add("bzxr_adress");
-        cols.add("bzxr_adress_jwzb");
+        cols.add("bzxr_adress_lng");
+        cols.add("bzxr_adress_lat");
         cols.add("bzxlx");
 
         RewardBean bean = new RewardBean();
@@ -371,8 +374,61 @@ public class HomeFragment extends BaseFragment<HomeFgView,HomeFgPresenter> imple
 
             //分类点击
             if (view == dropdownType) {
-
                 chooseType.setText(Content);
+Log.i("---near--","-----");
+                NearDatabean bean = new NearDatabean();
+                bean.setRequestMethod("getNearBzxrxxByJbrzb");
+
+                NearDatabean.DataBean bean1 = new NearDatabean.DataBean();
+                bean1.setBzxr_adress_lat("30.259244");
+                bean1.setBzxr_adress_lng("120.219375");
+                bean.setData(bean1);
+
+                RequestParams params = new RequestParams("UTF-8");
+                try {
+                    params.setBodyEntity(new StringEntity(new Gson().toJson(bean),"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                Helper.Post(Helper.post1, params, new OnHandleCallback() {
+                    @Override
+                    public void onSuccess(String json) {
+                        Log.i("---near---", json);
+
+//                        if (pull.equals("onRefresh")){
+                            getRewardDatas.clear();
+                            refreshLayout.finishRefreshing();
+//                        }else{
+//                            refreshLayout.finishLoadmore();
+//                        }
+                        GetRewardBean bean = Helper.jsonToBean(json, GetRewardBean.class);
+                        int totalRows = bean.getTotalRows();
+                        if (totalRows <= 0) {
+                            Toast.makeText(getActivity(), "附近没有悬赏任务", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ArrayList<GetRewardData> getRewardDatas = bean.getData();
+                        HomeFragment.this.getRewardDatas.addAll(getRewardDatas);
+                        adapter.notifyDataSetChanged();
+
+
+//                    try {
+//                        JSONObject sj = new JSONObject(json);
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+
+                    }
+
+                    @Override
+                    public void onFailure(String json) {
+
+                    }
+                });
+
+
             }
             // 地区点击
             else if (view == dropdownLabel) {
@@ -412,10 +468,17 @@ public class HomeFragment extends BaseFragment<HomeFgView,HomeFgPresenter> imple
 
         void init() {
             reset();
+
+
+
+
+
+
+
             typeAll = new ArrayList<String>();
             typeAll.add(0, "附近");
-            typeAll.add(1, "东新街道");
-            typeAll.add(2, "德胜东路");
+            typeAll.add(1, "西溪街道");
+            typeAll.add(2, "莫干山路");
             labelAll = new ArrayList<String>();
             labelAll.add(0, "时间");
             labelAll.add(1, "一小时前");

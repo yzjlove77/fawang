@@ -49,14 +49,25 @@ public class ReleaseData {
     private String task_demand;
     private String bzxlx;
     private String bzxr_adress;
-    private String bzxr_adress_jwzb;
+//    private String bzxr_adress_jwzb;
 
-    public String getBzxr_adress_jwzb() {
-        return bzxr_adress_jwzb;
+    private String bzxr_adress_lng;
+    private String bzxr_adress_lat;
+
+    public String getBzxr_adress_lng() {
+        return bzxr_adress_lng;
     }
 
-    public void setBzxr_adress_jwzb(String bzxr_adress_jwzb) {
-        this.bzxr_adress_jwzb = bzxr_adress_jwzb;
+    public void setBzxr_adress_lng(String bzxr_adress_lng) {
+        this.bzxr_adress_lng = bzxr_adress_lng;
+    }
+
+    public String getBzxr_adress_lat() {
+        return bzxr_adress_lat;
+    }
+
+    public void setBzxr_adress_lat(String bzxr_adress_lat) {
+        this.bzxr_adress_lat = bzxr_adress_lat;
     }
 
     public String getBzxr_adress() {

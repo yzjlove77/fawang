@@ -1,8 +1,11 @@
 package com.android.wx.french.activity;
 
+import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.easyvideoplayer.EasyVideoCallback;
+import com.afollestad.easyvideoplayer.EasyVideoPlayer;
 import com.android.wx.french.R;
 import com.android.wx.french.base.BaseActivity;
 import com.android.wx.french.base.BasePresenter;
@@ -14,7 +17,7 @@ import com.android.wx.french.widget.popupwindow.PopupWindowDistribution;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class ClueDetailActivity extends BaseActivity implements BasePopupWindow.OnClickBtnListener {
+public class ClueDetailActivity extends BaseActivity implements BasePopupWindow.OnClickBtnListener, EasyVideoCallback {
 
     @Bind(R.id.clue_detail_report_name)
     TextView reportNameTv;
@@ -28,6 +31,9 @@ public class ClueDetailActivity extends BaseActivity implements BasePopupWindow.
     TextView descriptionTv;
     @Bind(R.id.clue_detail_content)
     TextView contentTv;
+
+
+    private EasyVideoPlayer player;
 
     private GetClueData clueData;
     private PopupWindowClueSubmit popupSubmit;
@@ -53,7 +59,19 @@ public class ClueDetailActivity extends BaseActivity implements BasePopupWindow.
         beReportedIdcardTv.setText(clueData.getBe_report_man_idcard());
         descriptionTv.setText(clueData.getClue_describe());
         contentTv.setText(clueData.getClue_content());
+
+        player = (EasyVideoPlayer) findViewById(R.id.player);
+        player.setCallback(this);
+        player.setSource(Uri.parse("http://116.62.162.52:9080/1/2017-09-12/3/121212.mp4"));
+
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        player.pause();
+    }
+
 
     @OnClick({R.id.titlebar_left, R.id.clue_detail_btn, R.id.clue_distribution_btn})
     public void onClickBk(View view) {
@@ -100,5 +118,50 @@ public class ClueDetailActivity extends BaseActivity implements BasePopupWindow.
                 popupSubmit.dismiss();
                 break;
         }
+    }
+
+    @Override
+    public void onStarted(EasyVideoPlayer player) {
+
+    }
+
+    @Override
+    public void onPaused(EasyVideoPlayer player) {
+
+    }
+
+    @Override
+    public void onPreparing(EasyVideoPlayer player) {
+
+    }
+
+    @Override
+    public void onPrepared(EasyVideoPlayer player) {
+
+    }
+
+    @Override
+    public void onBuffering(int percent) {
+
+    }
+
+    @Override
+    public void onError(EasyVideoPlayer player, Exception e) {
+
+    }
+
+    @Override
+    public void onCompletion(EasyVideoPlayer player) {
+
+    }
+
+    @Override
+    public void onRetry(EasyVideoPlayer player, Uri source) {
+
+    }
+
+    @Override
+    public void onSubmit(EasyVideoPlayer player, Uri source) {
+
     }
 }

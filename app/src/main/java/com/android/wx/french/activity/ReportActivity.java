@@ -12,12 +12,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.wx.french.R;
-import com.android.wx.french.adapter.OnClickItemListener;
 import com.android.wx.french.adapter.ReportAdapter;
 import com.android.wx.french.base.BaseActivity;
 import com.android.wx.french.events.AlbumSelectEvent;
@@ -32,16 +32,32 @@ import com.android.wx.french.util.PermissionHelper;
 import com.android.wx.french.view.IReportView;
 import com.android.wx.french.widget.popupwindow.PopupWindowPhoto;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> implements IReportView, OnClickItemListener {
+public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> implements IReportView, ReportAdapter.OnClickItemListener {
 
     @Bind(R.id.titlebar_name)
     TextView titleTitle;
@@ -96,6 +112,8 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
         videoAlbums.add(new Album());
         videoAdapter = new ReportAdapter(mContext, videoAlbums);
         videoRecycler.setAdapter(videoAdapter);
+        videoAdapter.setAdapteType(1);
+        videoAdapter.setOnClickItemListener(this);
     }
 
     @Override
@@ -114,12 +132,41 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
                 onBackPressed();
                 break;
             case R.id.report_btn:
+
+                int size = albums.size();
+//                String images = "1&,&/1/";
+
+
+                for (int j = 0; j < size - 1; j++) {
+                    File file = new File(albums.get(j).getImagePath());
+                    HttpClient ht = new DefaultHttpClient();
+                    //	HttpPost post = new HttpPost("http://localhost:8080/testAction/uploadServlet");
+                    HttpPost post = new HttpPost("http://116.62.162.52:6060/fwzx/rest/CommonService/ReceiveFile2/" + file.getName());
+                    HttpResponse rs = null;
+                    try {
+                        File testFile = new File(file.getPath());
+                        post.setEntity(new InputStreamEntity(new FileInputStream(testFile), testFile.length()));
+                        rs = ht.execute(post);
+                        System.out.println("文件上传成功");
+                        if (rs.getStatusLine().getStatusCode() == 200) // 200表示服务器成功响应
+                        {
+                            String s = EntityUtils.toString(rs.getEntity(), "utf-8");
+                            System.out.println(s);
+                        }
+                    }catch (Exception e){
+
+                    }
+
+                }
+
                 String description = descriptionEt.getText().toString().trim();
                 if (TextUtils.isEmpty(description)) {
+
                     return;
                 }
                 String content = contentEt.getText().toString().trim();
                 if (TextUtils.isEmpty(content)) {
+
                     return;
                 }
                 ReportData data = new ReportData();
@@ -142,10 +189,11 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
                 if (!TextUtils.isEmpty(idcard)) {
                     data.setBe_report_man_idcard(idcard);
                 }
-                int size = albums.size();
+//               int size = albums.size();
                 String images = "1&,&/1/";
                 for (int i = 0; i < size - 1; i++) {
-                    if (i == size - 2) {
+
+                   if (i == size - 2) {
                         images = images + albums.get(i).getImagePath();
                     } else {
                         images = images + albums.get(i).getImagePath() + "&;&1&,&/1/";
@@ -156,34 +204,122 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
                 ReportBean bean = new ReportBean();
                 bean.setRequestMethod("insertReport");
                 bean.setData(data);
-
                 mPresenter.report(bean);
                 break;
         }
     }
 
+    private void upFile(String path){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    upLoadByCommonPost(new File(path));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
+    private void upLoadByCommonPost(File uploadFile) throws IOException {
+        String end = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "******";
+        String path = uploadFile.getAbsolutePath();
+        String serverUrl = "http://116.62.162.52:6060/fwzx/rest/CommonService/ReceiveFile2/";
+        java.net.URL url = new java.net.URL(serverUrl);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url
+                .openConnection();
+        // 允许输入输出流
+        httpURLConnection.setDoInput(true);
+        httpURLConnection.setDoOutput(true);
+        httpURLConnection.setUseCaches(false);
+        //POST方法
+        httpURLConnection.setRequestMethod("POST");
+        httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+        httpURLConnection.setRequestProperty("Charset", "UTF-8");
+        httpURLConnection.setRequestProperty("Content-Type",
+                "multipart/form-data;boundary=" + boundary);
+        DataOutputStream dos = new DataOutputStream(httpURLConnection.getOutputStream());
+        dos.writeBytes(twoHyphens + boundary + end);
+        dos.writeBytes("Content-Disposition: form-data;filename=\""
+                + path.substring(path.lastIndexOf("/") + 1) + "\"" + end);
+        Log.i("---path--",path.substring(path.lastIndexOf("/")+1));
+        dos.writeBytes(end);
+        FileInputStream fis = new FileInputStream(path);
+        byte[] buffer = new byte[8192]; // 8k
+        int count = 0;
+        // 读取文件
+        while ((count = fis.read(buffer)) != -1) {
+            dos.write(buffer, 0, count);
+        }
+        fis.close();
+        dos.writeBytes(end);
+        dos.writeBytes(twoHyphens + boundary + twoHyphens + end);
+        dos.flush();
+        InputStream is = httpURLConnection.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is, "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String result = br.readLine();
+        Log.i("---上传图片-1--", result);
+        if (result != null && !result.equals("")) {
+            try {
+                JSONObject obj = new JSONObject(result);
+//                JSONObject ob = new JSONObject(obj.getString("data"));
+//                JSONObject jsonObject = new JSONObject(ob.getString("photo"));
+//                saveList.add("./Uploads/ocr/"+jsonObject.getString("savename"));
+                Log.i("---上传图片---", obj.toString());
+
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+            }
+        }
+        dos.close();
+        is.close();
+    }
+
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(AlbumSelectEvent event) {
-        albums.addAll(albums.size() - 1, event.getAlbums());
-        imageAdapter.notifyDataSetChanged();
+        int type = event.getType();
+        if (1 == type) {
+            videoAlbums.addAll(videoAlbums.size() - 1, event.getAlbums());
+            videoAdapter.notifyDataSetChanged();
+        } else {
+            albums.addAll(albums.size() - 1, event.getAlbums());
+            imageAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
-    public void onClickItem(View view, int position) {
+    public void onClickItem(View view, int position, int adapterType) {
         switch (view.getId()) {
             case R.id.item_report_image:
-                if (position == albums.size() - 1) {
-                    boolean permission = PermissionHelper.getInstance(mContext).isPermission(mContext,
-                            new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, PermissionHelper.PERMISSION_PHOTO);
-                    MLog.mLog("permission = " + permission);
-                    if (permission) {
-                        showPopupPhoto();
+                if (1 == adapterType) {
+                    if (position == videoAlbums.size() - 1) {
+                        startActivity(new Intent(mContext, AlbumActivity.class).putExtra("start_type", 1));
+                    }
+                } else {
+                    if (position == albums.size() - 1) {
+                        boolean permission = PermissionHelper.getInstance(mContext).isPermission(mContext,
+                                new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, PermissionHelper.PERMISSION_PHOTO);
+                        MLog.mLog("permission = " + permission);
+                        if (permission) {
+                            showPopupPhoto();
+                        }
                     }
                 }
                 break;
             case R.id.item_reduce_image:
-                albums.remove(position);
-                imageAdapter.notifyItemRemoved(position);
+                if (1 == adapterType) {
+                    videoAlbums.remove(position);
+                    videoAdapter.notifyItemRemoved(position);
+                } else {
+                    albums.remove(position);
+                    imageAdapter.notifyItemRemoved(position);
+                }
                 break;
         }
     }
@@ -201,7 +337,9 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
             case PopupWindowPhoto.TAKE_PICTURE://拍照
                 if (RESULT_OK == resultCode) {
                     Uri imageUri = popupWindowPhoto.getImageUri();
-                    imageUrls.add(imageUrls.size() - 1, AbsolutePathUtil.getAbsolutePath(this, imageUri));
+                    Album album = new Album();
+                    album.setImagePath(AbsolutePathUtil.getAbsolutePath(this, imageUri));
+                    albums.add(albums.size() - 1, album);
                     imageAdapter.notifyDataSetChanged();
                 }
                 break;

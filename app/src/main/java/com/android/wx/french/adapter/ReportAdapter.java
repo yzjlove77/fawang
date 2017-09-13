@@ -26,6 +26,11 @@ public class ReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private ArrayList<Album> list;
     private LayoutInflater inflater;
     private OnClickItemListener onClickItemListener;
+    private int adapteType;
+
+    public void setAdapteType(int adapteType) {
+        this.adapteType = adapteType;
+    }
 
     public void setOnClickItemListener(OnClickItemListener onClickItemListener) {
         this.onClickItemListener = onClickItemListener;
@@ -61,7 +66,7 @@ public class ReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             @Override
             public void onClick(View v) {
                 if (onClickItemListener != null) {
-                    onClickItemListener.onClickItem(v, normalHolder.getAdapterPosition());
+                    onClickItemListener.onClickItem(v, normalHolder.getAdapterPosition(), adapteType);
                 }
             }
         });
@@ -70,7 +75,7 @@ public class ReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             @Override
             public void onClick(View v) {
                 if (onClickItemListener != null) {
-                    onClickItemListener.onClickItem(v, normalHolder.getAdapterPosition());
+                    onClickItemListener.onClickItem(v, normalHolder.getAdapterPosition(), adapteType);
                 }
             }
         });
@@ -94,5 +99,9 @@ public class ReportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnClickItemListener {
+        void onClickItem(View view, int position, int type);
     }
 }

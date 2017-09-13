@@ -11,6 +11,15 @@ import java.util.ArrayList;
 public class AlbumSelectEvent {
 
     private ArrayList<Album> albums;
+    private int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public AlbumSelectEvent(ArrayList<Album> albums) {
         this.albums = albums;

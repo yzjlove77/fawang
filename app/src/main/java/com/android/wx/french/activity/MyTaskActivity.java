@@ -160,7 +160,8 @@ public class MyTaskActivity extends BaseActivity implements View.OnClickListener
         cols.add("task_demand");
         cols.add("completion_status");
         cols.add("bzxr_adress");
-        cols.add("bzxr_adress_jwzb");
+        cols.add("bzxr_adress_lng");
+        cols.add("bzxr_adress_lat");
         cols.add("bzxlx");
 
         RewardBean bean = new RewardBean();

@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * 消息
  */
 
-public class MessageFragment extends Fragment {
+public class MessageFragment extends Fragment implements View.OnClickListener {
 
     @Bind(R.id.titlebar_left)
     ImageView leftImg;
@@ -65,6 +65,8 @@ public class MessageFragment extends Fragment {
         leftImg.setVisibility(View.GONE);
         titleTv.setText(R.string.tab_message);
         mRigthTv.setVisibility(View.GONE);
+        sixin.setOnClickListener(this);
+        tongzhi.setOnClickListener(this);
     }
 
     private void initViewPager() {
@@ -130,4 +132,17 @@ public class MessageFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tab_leftstring:
+               viewPager.setCurrentItem(0);
+                break;
+
+            case R.id.tab_rightstring:
+                viewPager.setCurrentItem(1);
+                break;
+
+        }
+    }
 }

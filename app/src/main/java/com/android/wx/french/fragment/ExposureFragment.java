@@ -93,6 +93,7 @@ public class ExposureFragment extends BaseFragment<ExposureFgView,ExposureFgPres
         mRecycleView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+
     }
 
     private void setRefreshLayouts() {

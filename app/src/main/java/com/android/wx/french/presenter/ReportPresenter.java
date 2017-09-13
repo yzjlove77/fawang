@@ -58,6 +58,7 @@ public class ReportPresenter extends BasePresenter<IReportView> {
 
             @Override
             public void onFailure(String json) {
+
             }
         });
     }

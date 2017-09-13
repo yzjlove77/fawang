@@ -1,12 +1,15 @@
 package com.android.wx.french.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.wx.french.R;
+import com.android.wx.french.activity.CarAvtivity;
 import com.android.wx.french.base.BaseFragment;
 import com.android.wx.french.events.PersonalDataEvent;
 import com.android.wx.french.presenter.PersonalFgPresenter;
@@ -53,6 +56,8 @@ public class PersonalFragment extends BaseFragment<PersonalFgView,PersonalFgPres
     TextView dengjiTv;
     @Bind(R.id.my_name_tv)
     TextView nameTv;
+    @Bind(R.id.my_car_btn)
+    Button button;
 
 
     @Override
@@ -72,6 +77,13 @@ public class PersonalFragment extends BaseFragment<PersonalFgView,PersonalFgPres
         mPresenter.initTitleBar();
 
         nameTv.setText(sph.getName());
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), CarAvtivity.class));
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

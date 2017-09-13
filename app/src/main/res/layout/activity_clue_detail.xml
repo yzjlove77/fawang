@@ -134,11 +134,22 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
+        <com.afollestad.easyvideoplayer.EasyVideoPlayer
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="8dp"/>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:orientation="horizontal">
+
+
+
 
             <Button
                 android:id="@+id/clue_detail_btn"
