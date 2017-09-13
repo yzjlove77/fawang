@@ -47,7 +47,7 @@ dependencies {
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
     compile 'com.contrarywind:Android-PickerView:3.2.6'
     compile 'org.greenrobot:eventbus:3.0.0'
-    //    compile 'org.xutils:xutils:3.3.36'
+    compile 'com.afollestad:easyvideoplayer:0.3.0'
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile files('libs/xUtils-2.6.14.jar')
     compile files('libs/org.apache.http.legacy.jar')

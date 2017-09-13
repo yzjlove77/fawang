@@ -56,13 +56,13 @@ public class PersonalFragment extends BaseFragment<PersonalFgView, PersonalFgPre
     TextView dengjiTv;
     @Bind(R.id.my_name_tv)
     TextView nameTv;
-<<<<<<< HEAD
+
     @Bind(R.id.my_car_btn)
     Button button;
-=======
+
     @Bind(R.id.my_friend_btn)
     Button myFriendBtn;
->>>>>>> 155e664bc131a10ed422843508b08a28630b7074
+
 
 
     @Override
