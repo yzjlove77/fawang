@@ -178,13 +178,17 @@ public class ExposureFragment extends BaseFragment<ExposureFgView,ExposureFgPres
                 }
                 getExposureDatabean bean = Helper.jsonToBean(json,getExposureDatabean.class);
                 list.addAll(bean.data);
+                if (bean.data.size()==0){
+                    showDialog("已加载全部数据");
+                }
                 adapter.notifyDataSetChanged();
+
 
             }
 
             @Override
             public void onFailure(String json) {
-
+showDialog("服务器连接异常！");
             }
         });
 

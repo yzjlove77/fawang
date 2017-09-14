@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.wx.french.util.SharePreferenceHelper;
+import com.android.wx.french.util.ShowDialog;
 
 import butterknife.ButterKnife;
 
@@ -54,5 +56,18 @@ public abstract class BaseActivity <V, T extends BasePresenter<V>> extends AppCo
 
     protected void showToast(String msg) {
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    protected  void showDialog(String content){
+        ShowDialog showDialog = new ShowDialog(mContext);
+        showDialog.setCancelable(false);
+        showDialog.show();
+        showDialog.setContent(content);
+        showDialog.setButtonOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog.dismiss();
+            }
+        });
     }
 }

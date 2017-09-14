@@ -51,6 +51,7 @@ public class CommentPresenter extends BasePresenter<ICommentView> {
                     commentView.showViewComment(getCommentBean.getData());
                 } else {
                 }
+
             }
 
             @Override

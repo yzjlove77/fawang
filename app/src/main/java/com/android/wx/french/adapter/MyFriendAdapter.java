@@ -16,9 +16,6 @@ import com.android.wx.french.api.OnHandleCallback;
 import com.android.wx.french.khc.bean.DeleteFriendBean;
 import com.android.wx.french.khc.bean.DeleteFriendData;
 import com.android.wx.french.khc.bean.DeleteFriendMsg;
-import com.android.wx.french.khc.bean.GetFriendBean;
-import com.android.wx.french.khc.bean.GetFriendData;
-import com.android.wx.french.khc.bean.GetFriendMsg;
 import com.android.wx.french.khc.bean.GetFriendMsgData;
 import com.android.wx.french.khc.function.MyDialog;
 import com.android.wx.french.khc.pro.IDelete;
@@ -152,7 +149,8 @@ public class MyFriendAdapter extends BaseAdapter{
                     }else {
                         Toast.makeText(context, "删除失败！--1", Toast.LENGTH_SHORT).show();
                     }
-                 }
+
+                }
 
                 @Override
                 public void onFailure(String json) {

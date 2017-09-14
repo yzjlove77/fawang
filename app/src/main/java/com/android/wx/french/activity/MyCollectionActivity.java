@@ -173,11 +173,12 @@ public class MyCollectionActivity extends BaseActivity implements OnClickItemLis
                 int totalRows = bean.getTotalRows();
                 if (totalRows <= 0) {
                     showToast("当前没有收藏的悬赏任务");
-                    return;
+
                 }
                 ArrayList<GetRewardData> getRewardDatas = bean.getData();
                 MyCollectionActivity.this.getRewardDatas.addAll(getRewardDatas);
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override

@@ -195,11 +195,12 @@ public class MyTaskActivity extends BaseActivity implements View.OnClickListener
                 int totalRows = bean.getTotalRows();
                 if (totalRows <= 0) {
                     showToast("当前没有悬赏任务");
-                    return;
+
                 }
                 ArrayList<GetRewardData> getRewardDatas = bean.getData();
                 MyTaskActivity.this.getRewardDatas.addAll(getRewardDatas);
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override

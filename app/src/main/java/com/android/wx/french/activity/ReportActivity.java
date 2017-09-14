@@ -31,12 +31,30 @@ import com.android.wx.french.util.MLog;
 import com.android.wx.french.util.PermissionHelper;
 import com.android.wx.french.view.IReportView;
 import com.android.wx.french.widget.popupwindow.PopupWindowPhoto;
+import com.lidroid.xutils.http.client.multipart.MultipartEntity;
+import com.lidroid.xutils.http.client.multipart.content.FileBody;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.params.ConnManagerParams;
+import org.apache.http.conn.params.ConnPerRouteBean;
+import org.apache.http.conn.routing.HttpRoute;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -121,7 +139,6 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
         super.initData();
         Bundle bundle = getIntent().getExtras();
         rewardData = (GetRewardData) bundle.getSerializable("rewardData");
-
         mPresenter.init();
     }
 
@@ -135,15 +152,41 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
 
                 int size = albums.size();
 //                String images = "1&,&/1/";
-
-
                 for (int j = 0; j < size - 1; j++) {
+                    Log.i("----kaishi----","图片开始上传");
+
+                    HttpParams params = new BasicHttpParams();
+                    /**
+                     * 设置管理器最大连接数，连接数超过次数需要排队
+                     */
+                    ConnManagerParams.setMaxTotalConnections(params, 4000);
+                    // 增加每个路由的默认最大连接到20-->200
+                    ConnPerRouteBean connPerRoute = new ConnPerRouteBean(200);
+
+                    // 对localhost:80增加最大连接到50	  连接端口设置
+                    HttpHost localhost = new HttpHost("locahost", 8080);
+                    connPerRoute.setMaxForRoute(new HttpRoute(localhost), 50);
+
+                    ConnManagerParams.setMaxConnectionsPerRoute(params, connPerRoute);
+
+                    SchemeRegistry schemeRegistry = new SchemeRegistry();
+
+                    schemeRegistry.register(
+
+                            new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+
+                    schemeRegistry.register(
+
+                            new Scheme("https", SSLSocketFactory.getSocketFactory(), 443));
+
+                    ClientConnectionManager cm = new ThreadSafeClientConnManager(params, schemeRegistry);
                     File file = new File(albums.get(j).getImagePath());
                     HttpClient ht = new DefaultHttpClient();
                     //	HttpPost post = new HttpPost("http://localhost:8080/testAction/uploadServlet");
                     HttpPost post = new HttpPost("http://116.62.162.52:6060/fwzx/rest/CommonService/ReceiveFile2/" + file.getName());
                     HttpResponse rs = null;
                     try {
+                        Log.i("---filepath---",file.getPath());
                         File testFile = new File(file.getPath());
                         post.setEntity(new InputStreamEntity(new FileInputStream(testFile), testFile.length()));
                         rs = ht.execute(post);
@@ -151,12 +194,12 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
                         if (rs.getStatusLine().getStatusCode() == 200) // 200表示服务器成功响应
                         {
                             String s = EntityUtils.toString(rs.getEntity(), "utf-8");
+                            Log.i("--resout--",s);
                             System.out.println(s);
                         }
                     }catch (Exception e){
 
                     }
-
                 }
 
                 String description = descriptionEt.getText().toString().trim();
@@ -221,6 +264,30 @@ public class ReportActivity extends BaseActivity<IReportView, ReportPresenter> i
             }
         }).start();
     }
+
+    private void upLoadByHttpClient4() throws ClientProtocolException,IOException {
+        HttpClient httpclient=new DefaultHttpClient();
+       httpclient.getParams().setParameter(
+               CoreProtocolPNames.PROTOCOL_VERSION,
+               HttpVersion.HTTP_1_1);
+
+        HttpPost httppost = new HttpPost("");
+        File  file= new File("");
+        MultipartEntity entity=new MultipartEntity();
+        FileBody fileBody=new FileBody(file);
+       entity.addPart("uploadfile", fileBody);
+        httppost.setEntity(entity);
+        HttpResponse response= httpclient.execute(httppost);
+        HttpEntity resEntity= response.getEntity();
+        if (resEntity !=null){
+            Log.i("0000",EntityUtils.toString(resEntity));
+        }if (resEntity!=null){
+            resEntity.consumeContent();
+        }
+        httpclient.getConnectionManager().shutdown();
+    }
+
+
 
 
     private void upLoadByCommonPost(File uploadFile) throws IOException {

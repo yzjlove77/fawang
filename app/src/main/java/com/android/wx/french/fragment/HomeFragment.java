@@ -244,11 +244,12 @@ public class HomeFragment extends BaseFragment<HomeFgView,HomeFgPresenter> imple
                 int totalRows = bean.getTotalRows();
                 if (totalRows <= 0) {
                     Toast.makeText(getActivity(), "当前没有悬赏任务", Toast.LENGTH_SHORT).show();
-                    return;
+
                 }
                 ArrayList<GetRewardData> getRewardDatas = bean.getData();
                 HomeFragment.this.getRewardDatas.addAll(getRewardDatas);
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -334,6 +335,7 @@ public class HomeFragment extends BaseFragment<HomeFgView,HomeFgPresenter> imple
                 currentDropdownList.button.setChecked(false);
                 appBarLayout.setExpanded(false);
             }
+
             appBarLayout.setExpanded(false);
             currentDropdownList = view;
             mask.clearAnimation();
@@ -372,18 +374,15 @@ public class HomeFragment extends BaseFragment<HomeFgView,HomeFgPresenter> imple
             String Content = view.button.textView.getText().toString();
             updateLabels(getCurrentLabels());
 
-            //分类点击
+            //附近
             if (view == dropdownType) {
                 chooseType.setText(Content);
-Log.i("---near--","-----");
                 NearDatabean bean = new NearDatabean();
                 bean.setRequestMethod("getNearBzxrxxByJbrzb");
-
                 NearDatabean.DataBean bean1 = new NearDatabean.DataBean();
                 bean1.setBzxr_adress_lat("30.259244");
                 bean1.setBzxr_adress_lng("120.219375");
                 bean.setData(bean1);
-
                 RequestParams params = new RequestParams("UTF-8");
                 try {
                     params.setBodyEntity(new StringEntity(new Gson().toJson(bean),"UTF-8"));
@@ -396,29 +395,6 @@ Log.i("---near--","-----");
                     public void onSuccess(String json) {
                         Log.i("---near---", json);
 
-//                        if (pull.equals("onRefresh")){
-                            getRewardDatas.clear();
-                            refreshLayout.finishRefreshing();
-//                        }else{
-//                            refreshLayout.finishLoadmore();
-//                        }
-                        GetRewardBean bean = Helper.jsonToBean(json, GetRewardBean.class);
-                        int totalRows = bean.getTotalRows();
-                        if (totalRows <= 0) {
-                            Toast.makeText(getActivity(), "附近没有悬赏任务", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        ArrayList<GetRewardData> getRewardDatas = bean.getData();
-                        HomeFragment.this.getRewardDatas.addAll(getRewardDatas);
-                        adapter.notifyDataSetChanged();
-
-
-//                    try {
-//                        JSONObject sj = new JSONObject(json);
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
 
                     }
 
@@ -427,18 +403,16 @@ Log.i("---near--","-----");
 
                     }
                 });
-
-
             }
-            // 地区点击
+            // 时间
             else if (view == dropdownLabel) {
                 chooseLabel.setText(Content);
             }
-            // 排序点击
+            // 金额
             else if (view == dropdownOrder) {
                 chooseOrder.setText(Content);
             }
-            //点击类别
+            //类别
             else if(view == typeDownLable){
                 chooseLast.setText(Content);
             }
@@ -469,12 +443,6 @@ Log.i("---near--","-----");
         void init() {
             reset();
 
-
-
-
-
-
-
             typeAll = new ArrayList<String>();
             typeAll.add(0, "附近");
             typeAll.add(1, "西溪街道");
@@ -490,7 +458,6 @@ Log.i("---near--","-----");
             orderAll.add(1, "100");
             orderAll.add(2, "1000");
             orderAll.add(3, "10000");
-
             lastAll = new ArrayList<>();
             lastAll.add(0, "类别");
             lastAll.add(1, "全部");
@@ -498,7 +465,6 @@ Log.i("---near--","-----");
             lastAll.add(3, "机构发布");
             lastAll.add(4, "寻人悬赏");
             lastAll.add(5, "寻物悬赏");
-
 
             // 全部标签
             datasetAllLabel = new ArrayList<DropdownItemObject>();

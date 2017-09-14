@@ -155,6 +155,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements Compound
                     } else {
                         loginView.loginFailed(msg);
                     }
+
                 }
 
                 @Override
@@ -192,6 +193,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements Compound
                     } else {
                         loginView.loginFailed(msg);
                     }
+
                 }
 
                 @Override

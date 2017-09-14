@@ -178,6 +178,7 @@ public class PopupWindowClueSubmit extends BasePopupWindow implements View.OnCli
                 } else {
                     Toast.makeText(mContext, "提交失败", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override

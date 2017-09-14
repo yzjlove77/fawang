@@ -106,6 +106,7 @@ public class CourtNameListPopWin extends PopupWindow implements AdapterView.OnIt
                 courtadapter.notifyDataSetChanged();
                 beanlist.addAll(list.get(0).fy_data);
 
+
             }
 
             @Override

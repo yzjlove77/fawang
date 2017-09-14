@@ -33,24 +33,6 @@
             android:background="@color/graycolore" />
 
         <EditText
-            android:id="@+id/register_phone"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@null"
-            android:drawableLeft="@drawable/login_user"
-            android:drawablePadding="6dp"
-            android:hint="手机号"
-            android:maxLength="11"
-            android:inputType="number"
-            android:textCursorDrawable="@drawable/course_bac" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/viewdip"
-            android:background="@color/graycolore" />
-
-        <EditText
             android:id="@+id/register_idCard"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -59,6 +41,60 @@
             android:drawableLeft="@drawable/login_user"
             android:drawablePadding="6dp"
             android:hint="身份证号"
+            android:textCursorDrawable="@drawable/course_bac" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore" />
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/register_phone"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:background="@null"
+                android:drawableLeft="@drawable/login_user"
+                android:drawablePadding="6dp"
+                android:hint="手机号"
+                android:maxLength="11"
+                android:inputType="number"
+                android:textCursorDrawable="@drawable/course_bac" />
+
+
+            <Button
+                android:id="@+id/getmessage_btn"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:text="获取验证码"
+                android:textColor="@color/white"
+                android:background="@drawable/button_gray_bac"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewdip"
+            android:background="@color/graycolore" />
+
+        <EditText
+            android:id="@+id/register_message"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/login_password"
+            android:drawablePadding="6dp"
+            android:hint="请输入验证码"
+            android:inputType="number"
             android:textCursorDrawable="@drawable/course_bac" />
 
         <View
@@ -109,5 +145,8 @@
             android:text="@string/register_name"
             android:textSize="18sp"
             android:background="@drawable/button_gray_bac"/>
+
     </LinearLayout>
+
+
 </LinearLayout>

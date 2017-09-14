@@ -53,6 +53,7 @@ public class CluePresenter extends BasePresenter<IClueView> {
                     clueView.showViewClue(getClueBean.getData());
                 } else {
                 }
+
             }
 
             @Override

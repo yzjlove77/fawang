@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.wx.french.util.SharePreferenceHelper;
+import com.android.wx.french.util.ShowDialog;
 
 import butterknife.ButterKnife;
 
@@ -54,6 +55,20 @@ public abstract class BaseFragment <V, T extends BasePresenter<V>> extends Fragm
     protected abstract int createViewLayoutId();//创建Fragment布局
 
     protected  void initView(View rootView){}//初始化view
+
+
+    protected  void showDialog(String content){
+        ShowDialog showDialog = new ShowDialog(mContext);
+        showDialog.setCancelable(false);
+        showDialog.show();
+        showDialog.setContent(content);
+        showDialog.setButtonOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog.dismiss();
+            }
+        });
+    }
 
 
 }

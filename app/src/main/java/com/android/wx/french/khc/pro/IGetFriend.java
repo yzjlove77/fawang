@@ -11,6 +11,5 @@ import java.util.ArrayList;
 
 public interface IGetFriend {
     void successGetFriend(int totalRows, ArrayList<GetFriendMsgData> list);
-
     void failureGetFriend(String msg);
 }

@@ -47,9 +47,10 @@ public class ReleasePresenter extends BasePresenter<IReleaseView> {
         Helper.Post(Helper.post1, params, new OnHandleCallback() {
             @Override
             public void onSuccess(String json) {
-                Log.i("---json---", json);
+
                 GetRegisterDataBean getRegisterDataBean = Helper.jsonToBean(json, GetRegisterDataBean.class);
                 releaseView.release(getRegisterDataBean.isRes(), getRegisterDataBean.getMsg());
+
             }
 
             @Override

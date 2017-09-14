@@ -40,6 +40,21 @@ public class PhoneUtils {
         return m.matches();
     }
 
+    /**
+     * 验证身份证号是否符合规则
+     * @param
+     * @return
+     */
+    public static boolean isPersonCode(String code){
+        Pattern p=Pattern.compile("^([0-9]{15}$)|([0-9]{17}([0-9]|X))$");
+        Matcher m=p.matcher(code);
+        if (m.matches()) {
+            return true;
+        }
+        return false;
+    }
+
+
     //判断邮箱号是否正确
     public static boolean isEmail(String email) {
         String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";

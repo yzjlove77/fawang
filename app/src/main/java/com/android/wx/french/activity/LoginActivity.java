@@ -1,6 +1,9 @@
 package com.android.wx.french.activity;
 
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -56,6 +59,28 @@ public class LoginActivity extends BaseActivity<LoginView,LoginPresenter> implem
         idCardEt.setText(sph.getIdCard());
         idCardEt.setSelection(idCardEt.getText().length());
 
+        passwordEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()>0&& !(TextUtils.isEmpty(idCardEt.getText().toString()))){
+                    loginBtn.setBackgroundResource(R.drawable.button_blue_bac);
+                    loginBtn.setTextColor(getResources().getColor(R.color.white));
+                }else{
+                    loginBtn.setBackgroundResource(R.drawable.button_gray_bac);
+                    loginBtn.setTextColor(getResources().getColor(R.color.white));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @OnClick({R.id.login_register})

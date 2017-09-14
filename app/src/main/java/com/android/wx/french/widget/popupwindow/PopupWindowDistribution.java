@@ -137,6 +137,7 @@ public class PopupWindowDistribution extends BasePopupWindow {
                 } else {
                     Toast.makeText(mContext, "提交失败", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override

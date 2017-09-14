@@ -48,6 +48,7 @@ public class PersonalPresenter extends BasePresenter<IPersonalView> {
                 Log.i("---json---", json);
                 GetRegisterDataBean getRegisterDataBean = Helper.jsonToBean(json, GetRegisterDataBean.class);
                 personalView.saveInfo(getRegisterDataBean.isRes(), bean.getData());
+
             }
 
             @Override

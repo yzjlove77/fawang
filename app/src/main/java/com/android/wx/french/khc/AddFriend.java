@@ -2,7 +2,6 @@ package com.android.wx.french.khc;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.wx.french.api.Helper;
 import com.android.wx.french.api.OnHandleCallback;
@@ -68,6 +67,7 @@ public class AddFriend {
                         addFriend(type,name,id);
                         break;
                 }
+
             }
 
             @Override
@@ -109,6 +109,7 @@ public class AddFriend {
                 }else {
                     iAddFriend.failureAddFriend("1");
                 }
+
             }
 
             @Override

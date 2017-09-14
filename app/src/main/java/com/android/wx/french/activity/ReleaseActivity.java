@@ -324,6 +324,7 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                     }
 
                     @Override
@@ -523,7 +524,7 @@ public class ReleaseActivity extends BaseActivity<IReleaseView, ReleasePresenter
                 .setType(Type.ALL)
                 .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
                 .setWheelItemTextSelectorColor(getResources().getColor(R.color.maincolor))
-                .setWheelItemTextSize(12)
+                .setWheelItemTextSize(16)
                 .build();
     }
 

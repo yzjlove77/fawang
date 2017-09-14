@@ -67,6 +67,7 @@ public class GetFriendList {
                 }else {
                     iGetFriend.failureGetFriend("1");
                 }
+
             }
 
             @Override

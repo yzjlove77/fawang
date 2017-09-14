@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/my_bac</item>
     </style>
 
+
     <style name="SelectPhotoDialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -44,10 +45,23 @@
         <!--<item name="android:background">@drawable/bt_blue_to_litter</item>-->
     </style>
 
+    <style name="MyDialog" parent="@style/CustomDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
 
     <style name="CheckBoxStyle">
         <!--选中的颜色-->
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
 
 </resources>

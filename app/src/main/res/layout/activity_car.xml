@@ -7,10 +7,13 @@
     <include layout="@layout/titlebar_layout"/>
 
     <EditText
+        android:layout_marginTop="20dp"
         android:id="@+id/car_number"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:hint="输入车辆号码"
+        android:paddingLeft="10dp"
+        android:background="@drawable/editext_bac"
         android:layout_margin="10dp"/>
 
     <Button
@@ -21,7 +24,6 @@
         android:background="@drawable/button_blue_bac"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
-
 
     <TextView
         android:layout_marginTop="10dp"
@@ -40,6 +42,5 @@
         android:id="@+id/name3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
 </LinearLayout>

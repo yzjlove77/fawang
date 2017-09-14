@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center"
+
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="230dp"
+        android:layout_height="150dp"
+        android:background="@drawable/editext_bac"
+        >
+
+        <TextView
+            android:textColor="@color/maincolor"
+            android:gravity="center"
+            android:text="提 示"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/nulldialog_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+
+        <View
+            android:background="@color/my_bac"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+        <Button
+
+            android:id="@+id/nulldialog_btn"
+            android:text="确  定"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <LinearLayout
+            android:id="@+id/nulldialog_shifou"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            >
+            <Button
+                android:id="@+id/nulldialog_shi"
+                android:text="是"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="35dp" />
+
+            <View
+                android:background="@color/my_bac"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:id="@+id/nulldialog_fou"
+                android:text="否"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="35dp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -4,8 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.wx.french.R;
+import com.android.wx.french.model.GetMyReportData;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/15.
@@ -13,8 +17,11 @@ import com.android.wx.french.R;
 
 public class MyreportAdapter extends RecyclerView.Adapter<MyreportAdapter.ViewHolder> {
 
+    private List<GetMyReportData.DataBean > list ;
 
-    public MyreportAdapter(){
+    public MyreportAdapter(List<GetMyReportData.DataBean > list){
+
+        this.list = list;
 
     }
 
@@ -27,17 +34,21 @@ public class MyreportAdapter extends RecyclerView.Adapter<MyreportAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.content.setText(list.get(position).getClue_describe());
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.isEmpty()?0:list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+private TextView content,time;
         public ViewHolder(View itemView) {
             super(itemView);
+
+            content = (TextView) itemView.findViewById(R.id.my_report_content);
+            time = (TextView) itemView.findViewById(R.id.my_report_time);
 
 
         }

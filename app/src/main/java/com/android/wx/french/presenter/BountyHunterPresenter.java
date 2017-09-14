@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.android.wx.french.R;
-import com.android.wx.french.activity.MyTaskActivity;
 import com.android.wx.french.adapter.BountyHunterAdapter;
 import com.android.wx.french.api.Helper;
 import com.android.wx.french.api.OnHandleCallback;
@@ -15,8 +14,6 @@ import com.android.wx.french.base.BasePresenter;
 import com.android.wx.french.khc.bean.BountyMsg;
 import com.android.wx.french.khc.bean.BountyMsgData;
 import com.android.wx.french.khc.function.Util;
-import com.android.wx.french.model.GetRewardBean;
-import com.android.wx.french.model.GetRewardData;
 import com.android.wx.french.model.RewardBean;
 import com.android.wx.french.model.RewardData;
 import com.android.wx.french.util.RecycleViewDivider;
@@ -118,11 +115,12 @@ public class BountyHunterPresenter extends BasePresenter<BountyHunterView> {
                 int totalRows = bean.getTotalRows();
                 if (totalRows <= 0) {
                     Util.showToast(context,"暂时没有人上榜");
-                    return;
+
                 }
                 ArrayList<BountyMsgData> dataList = bean.getData();
                 list.addAll(dataList);
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override

@@ -54,6 +54,7 @@ public class ReportPresenter extends BasePresenter<IReportView> {
                 } else {
                     reportView.failedViewReport(msg);
                 }
+
             }
 
             @Override
